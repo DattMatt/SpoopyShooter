@@ -12,6 +12,13 @@ class Game
 	: public DXCore
 {
 
+	enum GameState : int
+	{
+		start,
+		game,
+		end
+	};
+
 public:
 	Game(HINSTANCE hInstance);
 	~Game();
@@ -28,6 +35,10 @@ public:
 	void OnMouseUp	 (WPARAM buttonState, int x, int y);
 	void OnMouseMove (WPARAM buttonState, int x, int y);
 	void OnMouseWheel(float wheelDelta,   int x, int y);
+
+	GameState state;
+
+	void ChangeState();
 
 private:
 
@@ -70,5 +81,6 @@ private:
 	// determining how far the mouse moved in a single frame.
 	POINT prevMousePos;
 	bool isDown;
+	bool uDown;
 };
 

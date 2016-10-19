@@ -103,6 +103,9 @@ void Game::Init()
 	// geometric primitives (points, lines or triangles) we want to draw.  
 	// Essentially: "What kind of shape should the GPU draw with our data?"
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	state = start;
+	uDown = false;
 }
 
 // --------------------------------------------------------
@@ -274,6 +277,9 @@ void Game::Update(float deltaTime, float totalTime)
 	// Quit if the escape key is pressed
 	if (GetAsyncKeyState(VK_ESCAPE))
 		Quit();		
+	if (GetAsyncKeyState('U') & 0x8000)
+		ChangeState();
+	
 
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -281,6 +287,31 @@ void Game::Update(float deltaTime, float totalTime)
 	}
 
 	camera->Update(deltaTime);
+}
+
+void Game::ChangeState()
+{
+	switch (state)
+	{
+		case start : 
+		{
+			state = game;
+			printf("Game");
+			break;
+		}
+		case game:	
+		{
+			state = end;
+			printf("End");
+			break;
+		}
+		case end:	
+		{
+			state = start;
+			printf("Start");
+			break;
+		}
+	}
 }
 
 // --------------------------------------------------------
