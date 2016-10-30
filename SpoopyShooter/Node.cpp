@@ -1,9 +1,8 @@
 #include "Node.h"
 
-Node::Node(XMFLOAT3 pos, Node* n)
+Node::Node(XMFLOAT3 pos)
 {
-	position = pos;
-	nextNode = n;
+	position = pos;	
 }
 
 Node::~Node()

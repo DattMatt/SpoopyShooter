@@ -1,21 +1,11 @@
-﻿D:\SpoopyShooter\SpoopyShooter\PixelShader.hlsl(39,2-66): warning X3206: implicit truncation of vector type
-  
-  compilation object save succeeded; see D:\SpoopyShooter\SpoopyShooter\Debug\PixelShader.cso
-  compilation object save succeeded; see D:\SpoopyShooter\SpoopyShooter\Debug\VertexShader.cso
-  SimpleShader.cpp
-  Node.cpp
-  Mesh.cpp
-  Material.cpp
-  Main.cpp
-  Game.cpp
+﻿  Game.cpp
 d:\spoopyshooter\spoopyshooter\game.cpp(60): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(92): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\spoopyshooter\spoopyshooter\game.cpp(65): warning C4018: '<': signed/unsigned mismatch
 d:\spoopyshooter\spoopyshooter\game.cpp(97): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\spoopyshooter\spoopyshooter\game.cpp(284): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(349): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(413): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-  Entity.cpp
-  Generating Code...
-  LINK : D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe not found or not built by the last incremental link; performing full link
+d:\spoopyshooter\spoopyshooter\game.cpp(102): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\spoopyshooter\spoopyshooter\game.cpp(121): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(308): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(373): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(437): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
   DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)

@@ -15,7 +15,7 @@ private:
 
 public:
 
-	Node(XMFLOAT3 pos, Node* n);
+	Node(XMFLOAT3 pos);
 	~Node();
 
 	XMFLOAT3 GetPosition();

@@ -1,5 +1,9 @@
 #include "Entity.h"
 
+Entity::Entity()
+{
+}
+
 Entity::Entity(Mesh* _mesh, Material* _mat)
 {
 	mesh = _mesh;

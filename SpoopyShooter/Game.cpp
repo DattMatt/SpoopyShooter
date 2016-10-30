@@ -61,6 +61,11 @@ Game::~Game()
 	{
 		delete entities[i];
 	}
+
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		delete nodes[i];
+	}
 }
 
 // --------------------------------------------------------
@@ -106,6 +111,25 @@ void Game::Init()
 
 	state = start;
 	uDown = false;
+
+	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 0.0f)));
+	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 2.0f)));
+	nodes.push_back(new Node(XMFLOAT3(-1.0f, 0.0f, 3.0f)));
+	nodes.push_back(new Node(XMFLOAT3(-1.0f, 0.0f, 5.0f)));
+	nodes.push_back(new Node(XMFLOAT3(-3.0f, 0.0f, 2.0f)));
+
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		if (i != nodes.size() - 1) 
+		{
+			nodes[i]->SetNext(nodes[i + 1]);
+		}
+		else
+		{
+			nodes[i]->SetNext(nodes[0]);
+		}
+		printf("Node is at position: (%f, %f, %f)\n", nodes[i]->GetPosition().x, nodes[i]->GetPosition().y, nodes[i]->GetPosition().z);
+	}
 }
 
 // --------------------------------------------------------
