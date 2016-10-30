@@ -3,9 +3,9 @@ d:\spoopyshooter\spoopyshooter\game.cpp(60): warning C4018: '<': signed/unsigned
 d:\spoopyshooter\spoopyshooter\game.cpp(65): warning C4018: '<': signed/unsigned mismatch
 d:\spoopyshooter\spoopyshooter\game.cpp(97): warning C4305: 'argument': truncation from 'double' to 'float'
 d:\spoopyshooter\spoopyshooter\game.cpp(102): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\spoopyshooter\spoopyshooter\game.cpp(121): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(308): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(373): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(437): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+d:\spoopyshooter\spoopyshooter\game.cpp(125): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(314): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(385): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(449): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
   DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)

@@ -95,14 +95,18 @@ void Game::Init()
 	isDown = false;
 	dirLight = {
 		XMFLOAT4(0.1,0.1,0.1,1.0),
-		XMFLOAT4(0,1,1,1),
+		XMFLOAT4(0,0,0,1),
 		XMFLOAT3(1,-1,0)
 	};
 	dirLight2 = {
 		XMFLOAT4(0.1,0.1,0.1,1.0),
-		XMFLOAT4(1,0,0,1),
+		XMFLOAT4(0,0,0,1),
 		XMFLOAT3(-1,-1,0)
 	};	
+	pLight = {
+		XMFLOAT4(1, 0, 0, 1),
+		XMFLOAT3(-1.8f, 1.0f, 0)
+	};
 
 	// Tell the input assembler stage of the pipeline what kind of
 	// geometric primitives (points, lines or triangles) we want to draw.  
@@ -303,6 +307,8 @@ void Game::Update(float deltaTime, float totalTime)
 		Quit();		
 	if (GetAsyncKeyState('U') & 0x8000)
 		ChangeState();
+
+	entities[1]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
 	
 
 	for (int i = 0; i < entities.size(); i++)
@@ -356,6 +362,7 @@ void Game::Draw(float deltaTime, float totalTime)
 		1.0f,
 		0);
 
+	// Lights
 	pixelShader->SetData(
 		"dirLight",
 		&dirLight,
@@ -364,6 +371,11 @@ void Game::Draw(float deltaTime, float totalTime)
 		"dirLight2",
 		&dirLight2,
 		sizeof(DirectionalLight));
+	pixelShader->SetData(
+		"pLight",
+		&pLight,
+		sizeof(PointLight));
+	pixelShader->SetFloat3("CameraPosition", camera->GetPositon());
 
 	// Set buffers in the input assembler
 	//  - Do this ONCE PER OBJECT you're drawing, since each object might

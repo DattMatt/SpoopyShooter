@@ -74,6 +74,8 @@ private:
 	DirectionalLight dirLight;
 	DirectionalLight dirLight2;
 
+	PointLight pLight;
+
 	// The matrices to go from model space to screen space
 	DirectX::XMFLOAT4X4 worldMatrix;
 	DirectX::XMFLOAT4X4 viewMatrix;
