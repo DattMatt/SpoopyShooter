@@ -15,6 +15,7 @@ struct VertexToPixel
 	//  v    v                v
 	float4 position		: SV_POSITION;
 	float3 normal       : NORMAL;	
+	float3 worldPos     : POSITION;
 	float2 uv			: TEXCOORD;
 };
 
@@ -25,10 +26,27 @@ struct DirectionalLight
 	float3 Direction;
 };
 
+struct PointLight
+{
+	float4 DiffuseColor;
+	float3 Position;
+};
+
+struct SpotLight
+{
+	float4 DiffuseColor;
+	float3 Direction;
+	float2 SpotPower;
+};
+
 cbuffer data : register(b0)
 {
 	DirectionalLight dirLight;
 	DirectionalLight dirLight2;
+
+	PointLight pLight;
+
+	float3 CameraPosition;
 };
 
 float3 CalculateDirLight(float3 norm, DirectionalLight light)
@@ -37,6 +55,17 @@ float3 CalculateDirLight(float3 norm, DirectionalLight light)
 	float lightAmount = saturate(dot(norm, dirToLight));
 
 	return ((lightAmount * light.DiffuseColor) + light.AmbientColor);
+}
+
+float3 CalculatePointLight(float3 norm, float3 wPos, PointLight light) {
+	float3 lightDir = normalize(light.Position - wPos);
+	float lightAmount = saturate(dot(norm, lightDir));
+
+	float3 toCamera = normalize(CameraPosition - wPos);
+	float3 refl = reflect(-lightDir, norm);
+	float spec = pow(max(dot(refl, toCamera), 0), 200);
+	
+	return (lightAmount * light.DiffuseColor) + spec;
 }
 
 // --------------------------------------------------------
@@ -54,6 +83,8 @@ float4 main(VertexToPixel input) : SV_TARGET
 	float4 surfaceColor = diffuseTexture.Sample(basicSampler, input.uv);
 	float4 directionalLight = float4(CalculateDirLight(input.normal, dirLight), 1);
 	float4 directionalLight2 = float4(CalculateDirLight(input.normal, dirLight2), 1);
+
+	float4 pointLight = float4(CalculatePointLight(input.normal, input.worldPos, pLight), 1);
 	
-	return (directionalLight + directionalLight2) * surfaceColor;
+	return (directionalLight + directionalLight2 + pointLight) * surfaceColor;
 }
