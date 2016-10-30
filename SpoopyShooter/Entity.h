@@ -19,6 +19,7 @@ private:
 	Material* mat;
 
 public:
+	Entity();
 	Entity(Mesh* _mesh, Material* _mat);
 	~Entity();
 
