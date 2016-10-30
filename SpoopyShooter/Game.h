@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Lights.h"
 #include "WICTextureLoader.h"
+#include "Node.h"
 #include <DirectXMath.h>
 
 class Game 
@@ -52,6 +53,7 @@ private:
 	Material* mat2;
 	
 	std::vector<Entity*> entities;
+	std::vector<Node*> nodes;
 
 	Camera* camera;
 
