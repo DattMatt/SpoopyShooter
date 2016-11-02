@@ -1,6 +1,9 @@
-﻿\\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\PixelShader.hlsl(57,2-66): warning X3206: implicit truncation of vector type
-\\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\PixelShader.hlsl(68,2-50): warning X3206: implicit truncation of vector type
-  
-  compilation object save succeeded; see \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\PixelShader.cso
-  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
-  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)
+﻿  Game.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\game.cpp(64): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\game.cpp(96): warning C4305: 'argument': truncation from 'double' to 'float'
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\game.cpp(101): warning C4305: 'argument': truncation from 'double' to 'float'
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\game.cpp(302): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\game.cpp(373): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\game.cpp(437): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\Debug\DX11Starter.exe
+  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)

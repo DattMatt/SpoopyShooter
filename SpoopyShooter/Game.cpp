@@ -50,11 +50,15 @@ Game::~Game()
 	delete pentagon;
 	delete cone;
 	delete cube;
+	delete ghost;
+	delete fencePillar;
 	delete camera;
 	delete mat;
 	delete mat2;
+	delete mat3;
 	leavesView->Release();
 	brickView->Release();
+	stoneFence->Release();
 	sampler->Release();
 
 	for (int i = 0; i < entities.size(); i++)
@@ -130,10 +134,12 @@ void Game::LoadShaders()
 
 	HRESULT texResult = CreateWICTextureFromFile(device, context, L"Assets/Textures/leaves.png", 0, &leavesView);
 	HRESULT texResult2 = CreateWICTextureFromFile(device, context, L"Assets/Textures/brick.jpg", 0, &brickView);
+	HRESULT texResult3 = CreateWICTextureFromFile(device, context, L"Assets/Textures/StoneFence.png", 0, &stoneFence);
 	HRESULT sampResult = device->CreateSamplerState(&description, &sampler);
 
 	mat = new Material(vertexShader, pixelShader, leavesView, sampler);
 	mat2 = new Material(vertexShader, pixelShader, brickView, sampler);
+	mat3 = new Material(vertexShader, pixelShader, stoneFence, sampler);
 
 	// You'll notice that the code above attempts to load each
 	// compiled shader file (.cso) from two different relative paths.
@@ -253,12 +259,18 @@ void Game::CreateBasicGeometry()
 
 	cone = new Mesh("Assets/Models/cone.obj", device);	
 	cube = new Mesh("Assets/Models/cube.obj", device);
+	ghost = new Mesh("Assets/Models/SpoopyGhost.obj", device);
+	fencePillar = new Mesh("Assets/Models/FencePillar.obj", device);
 
 	entities.push_back(new Entity(cone, mat));
 	entities.push_back(new Entity(cube, mat2));
+	entities.push_back(new Entity(ghost, mat));
+	entities.push_back(new Entity(fencePillar, mat3));
 
 	entities[0]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 0.0f));
+	entities[2]->SetPositionVector(XMFLOAT3(0.0f, 1.0f, -1.0f));
+	entities[3]->SetPositionVector(XMFLOAT3(-5.0f, 0.0f, 0.0f));
 }
 
 
