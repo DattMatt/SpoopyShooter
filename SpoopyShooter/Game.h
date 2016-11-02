@@ -49,10 +49,13 @@ private:
 	Mesh* pentagon;	
 	Mesh* cone;
 	Mesh* cube;
+	Mesh* ghost;
+	Mesh* fencePillar;
 
 	Material* mat;
 	Material* mat2;
-	
+	Material* mat3;
+
 	std::vector<Entity*> entities;
 	std::vector<Node*> nodes;
 
@@ -61,6 +64,7 @@ private:
 
 	ID3D11ShaderResourceView* leavesView;
 	ID3D11ShaderResourceView* brickView;
+	ID3D11ShaderResourceView* stoneFence;
 	ID3D11SamplerState* sampler;
 	D3D11_SAMPLER_DESC description;
 
