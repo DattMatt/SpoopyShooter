@@ -25,7 +25,7 @@ public:
 
 	XMFLOAT4X4 GetViewMatrix();
 	XMFLOAT4X4 GetProjectionMatrix();
-	XMFLOAT3 GetPositon();
+	XMFLOAT3 GetPosition();
 	XMFLOAT3 GetForward();
 	XMFLOAT3 GetUp();
 	XMFLOAT3 GetRight();

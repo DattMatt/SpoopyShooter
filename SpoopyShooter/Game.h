@@ -5,6 +5,8 @@
 #include "Entity.h"
 #include "Camera.h"
 #include "Lights.h"
+#include "Node.h"
+#include "Player.h"
 #include "WICTextureLoader.h"
 #include <DirectXMath.h>
 
@@ -52,8 +54,10 @@ private:
 	Material* mat2;
 	
 	std::vector<Entity*> entities;
+	std::vector<Node*> nodes;
 
 	Camera* camera;
+	Player* player;
 
 	ID3D11ShaderResourceView* leavesView;
 	ID3D11ShaderResourceView* brickView;

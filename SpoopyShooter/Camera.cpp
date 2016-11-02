@@ -29,7 +29,7 @@ Camera::~Camera()
 
 XMFLOAT4X4 Camera::GetViewMatrix() { return viewMatrix; }
 XMFLOAT4X4 Camera::GetProjectionMatrix() { return projectionMatrix; }
-XMFLOAT3 Camera::GetPositon() { return position; }
+XMFLOAT3 Camera::GetPosition() { return position; }
 XMFLOAT3 Camera::GetForward() { return forward; }
 XMFLOAT3 Camera::GetUp() { return up; }
 XMFLOAT3 Camera::GetRight() { return right; }

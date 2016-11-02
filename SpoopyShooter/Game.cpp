@@ -51,6 +51,7 @@ Game::~Game()
 	delete cone;
 	delete cube;
 	delete camera;
+	delete player;
 	delete mat;
 	delete mat2;
 	leavesView->Release();
@@ -60,6 +61,11 @@ Game::~Game()
 	for (int i = 0; i < entities.size(); i++)
 	{
 		delete entities[i];
+	}
+
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		delete nodes[i];
 	}
 }
 
@@ -85,6 +91,9 @@ void Game::Init()
 	CreateBasicGeometry();
 	camera = new Camera();	
 	camera->UpdateProjectionMatrix(width, height);	
+	player = new Player(XMFLOAT3(0.0f, 0.0f, -5.0f), camera);
+	printf("Player Position: (%f, %f, %f)\n", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
+	printf("Camera Position: (%f, %f, %f)\n", player->GetCamera()->GetPosition().x, player->GetCamera()->GetPosition().y, player->GetCamera()->GetPosition().z);
 	prevMousePos.x = 0;
 	prevMousePos.y = 0;
 	isDown = false;
@@ -102,6 +111,22 @@ void Game::Init()
 		XMFLOAT4(1, 0, 0, 1),
 		XMFLOAT3(-1.8f, 1.0f, 0)
 	};
+
+	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 0.0f)));
+	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 2.0f)));
+	nodes.push_back(new Node(XMFLOAT3(1.0f, 0.0f, 3.0f)));
+	nodes.push_back(new Node(XMFLOAT3(1.0f, 0.0f, 5.0f)));
+	nodes.push_back(new Node(XMFLOAT3(3.0f, 0.0f, 2.0f)));
+
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		if (i != nodes.size() - 1)
+			nodes[i]->SetNext(nodes[i + 1]);
+		else
+			nodes[i]->SetNext(nodes[0]);
+
+		printf("Location of next node: (%f, %f, %f)\n", nodes[i]->GetNext()->GetPosition().x, nodes[i]->GetNext()->GetPosition().y, nodes[i]->GetNext()->GetPosition().z);
+	}
 
 	// Tell the input assembler stage of the pipeline what kind of
 	// geometric primitives (points, lines or triangles) we want to draw.  
@@ -286,6 +311,8 @@ void Game::Update(float deltaTime, float totalTime)
 
 	entities[1]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
 	
+	player->MoveToward(XMFLOAT3(0.0f, 0.0f, 60.0f), 1.0f, deltaTime);
+	player->UpdateCameraPos();
 
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -351,7 +378,7 @@ void Game::Draw(float deltaTime, float totalTime)
 		"pLight",
 		&pLight,
 		sizeof(PointLight));
-	pixelShader->SetFloat3("CameraPosition", camera->GetPositon());
+	pixelShader->SetFloat3("CameraPosition", camera->GetPosition());
 
 	// Set buffers in the input assembler
 	//  - Do this ONCE PER OBJECT you're drawing, since each object might
