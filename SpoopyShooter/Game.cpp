@@ -95,7 +95,7 @@ void Game::Init()
 	CreateBasicGeometry();
 	camera = new Camera();	
 	camera->UpdateProjectionMatrix(width, height);	
-	player = new Player(XMFLOAT3(0.0f, 0.0f, -5.0f), camera);
+	player = new Player(XMFLOAT3(0.0f, 0.0f, -5.0f), camera);	
 	printf("Player Position: (%f, %f, %f)\n", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
 	printf("Camera Position: (%f, %f, %f)\n", player->GetCamera()->GetPosition().x, player->GetCamera()->GetPosition().y, player->GetCamera()->GetPosition().z);
 	prevMousePos.x = 0;
@@ -121,6 +121,8 @@ void Game::Init()
 	nodes.push_back(new Node(XMFLOAT3(1.0f, 0.0f, 3.0f)));
 	nodes.push_back(new Node(XMFLOAT3(1.0f, 0.0f, 5.0f)));
 	nodes.push_back(new Node(XMFLOAT3(3.0f, 0.0f, 2.0f)));
+
+	player->SetCurrent(nodes[0]);
 
 	for (int i = 0; i < nodes.size(); i++)
 	{
@@ -294,7 +296,7 @@ void Game::CreateBasicGeometry()
 
 	entities[0]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 0.0f));
-	entities[2]->SetPositionVector(XMFLOAT3(0.0f, 1.0f, -1.0f));
+	entities[2]->SetPositionVector(XMFLOAT3(0.0f, 1.0f, 4.0f));
 	entities[3]->SetPositionVector(XMFLOAT3(-5.0f, 0.0f, 0.0f));
 }
 
@@ -323,8 +325,16 @@ void Game::Update(float deltaTime, float totalTime)
 
 	entities[1]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
 	
-	player->MoveToward(XMFLOAT3(0.0f, 0.0f, 60.0f), 1.0f, deltaTime);
+	player->MoveToward(player->GetCurrent()->GetPosition(), 1.0f, deltaTime);
 	player->UpdateCameraPos();
+	
+	XMFLOAT3 length;
+	XMStoreFloat3(&length, XMVector3Length(XMLoadFloat3(&player->GetCurrent()->GetPosition()) - XMLoadFloat3(&player->GetPosition())));
+	
+	if (length.x <= player->GetCurrent()->GetRadius())
+	{
+		player->SetCurrent(player->GetCurrent()->GetNext());
+	}
 
 	for (int i = 0; i < entities.size(); i++)
 	{

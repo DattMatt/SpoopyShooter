@@ -16,12 +16,12 @@ Player::~Player()
 
 XMFLOAT3 Player::GetPosition() { return position; }
 void Player::SetPosition(XMFLOAT3 pos) { position = pos; }
-
 Camera* Player::GetCamera() { return camera; }
 void Player::SetCamera(Camera* cam) { camera = cam; }
-
 float Player::GetCameraOffset() { return cameraOffset; }
 void Player::SetCameraOffset(float off) { cameraOffset = off; }
+Node* Player::GetCurrent() { return currentNode; }
+void Player::SetCurrent(Node* n) { currentNode = n; }
 
 void Player::MoveToward(XMFLOAT3 targ, float speed, float dt)
 {

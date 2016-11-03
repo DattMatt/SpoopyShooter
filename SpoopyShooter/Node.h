@@ -12,6 +12,7 @@ private:
 
 	XMFLOAT3 position;
 	Node* nextNode;
+	float radius;
 
 public:
 
@@ -20,9 +21,9 @@ public:
 
 	XMFLOAT3 GetPosition();
 	void SetPosition(XMFLOAT3 p);
-
 	Node* GetNext();
 	void SetNext(Node* n);
+	float GetRadius();
 
 };
 
