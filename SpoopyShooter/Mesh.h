@@ -21,6 +21,7 @@ public:
 	ID3D11Buffer* indexBuffer;
 
 	Vertex* verts;
+	std::vector<Vertex> gVerts;
 	int numVerts;
 	int numIndices;
 

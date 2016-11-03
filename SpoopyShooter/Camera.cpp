@@ -150,8 +150,13 @@ void Camera::Raycast(float mouseX, float mouseY, std::vector<Target*>& targets)
 		XMVECTOR projVec = XMVector4Normalize(XMVectorSet(forward.x, forward.y, forward.z, 1));
 		projVec *= proj;
 		XMFLOAT4 fOTP;
-		XMStoreFloat4(&fOTP, XMVectorSubtract(distObj, projVec));
-		float distFromObjToProj = sqrtf(fOTP.x * fOTP.x + fOTP.y * fOTP.y + fOTP.z * fOTP.z);
+		XMFLOAT4 fDistObj;
+		XMFLOAT4 fProjVec;
+		XMStoreFloat4(&fDistObj, distObj);
+		XMStoreFloat4(&fProjVec, projVec);
+		//XMStoreFloat4(&fOTP, XMVectorSubtract(distObj, projVec));
+		//float distFromObjToProj = sqrtf(fOTP.x * fOTP.x + fOTP.y * fOTP.y + fOTP.z * fOTP.z);
+		float distFromObjToProj = sqrtf(powf(fDistObj.x - fProjVec.x, 2) + powf(fDistObj.y - fProjVec.y, 2) + powf(fDistObj.z - fProjVec.z, 2));
 		printf("%f \n", distFromObjToProj);
 		printf("%f \n", targets[i]->GetRadius());
 

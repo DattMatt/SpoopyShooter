@@ -299,7 +299,7 @@ void Game::CreateBasicGeometry()
 	entities.push_back(new Entity(ghost, mat));
 	entities.push_back(new Entity(fencePillar, mat3));
 
-	targets.push_back(new Target(cube, mat));	
+	targets.push_back(new Target(cube, mat));
 
 	entities[0]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 0.0f));

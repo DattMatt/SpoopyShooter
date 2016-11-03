@@ -159,6 +159,10 @@ Mesh::Mesh(char* model, ID3D11Device* device)
 	// - Yes, the indices are a bit redundant here (one per vertex)
 
 	CreateBuffers(&verts[0], vertCounter, &indices[0], vertCounter, device);
+
+	numVerts = vertCounter;
+	gVerts = verts;
+
 }
 
 
