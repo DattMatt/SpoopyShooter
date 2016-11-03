@@ -6,6 +6,8 @@
 #include "Camera.h"
 #include "Lights.h"
 #include "Target.h"
+#include "Node.h"
+#include "Player.h"
 #include "WICTextureLoader.h"
 #include <DirectXMath.h>
 
@@ -48,17 +50,23 @@ private:
 	Mesh* pentagon;	
 	Mesh* cone;
 	Mesh* cube;
+	Mesh* ghost;
+	Mesh* fencePillar;
 
 	Material* mat;
 	Material* mat2;
-	
+	Material* mat3;
+
 	std::vector<Entity*> entities;
 	std::vector<Target*> targets;
+	std::vector<Node*> nodes;
 
 	Camera* camera;
+	Player* player;
 
 	ID3D11ShaderResourceView* leavesView;
 	ID3D11ShaderResourceView* brickView;
+	ID3D11ShaderResourceView* stoneFence;
 	ID3D11SamplerState* sampler;
 	D3D11_SAMPLER_DESC description;
 

@@ -50,20 +50,31 @@ Game::~Game()
 	delete pentagon;
 	delete cone;
 	delete cube;
+	delete ghost;
+	delete fencePillar;
 	delete camera;
+	delete player;
 	delete mat;
 	delete mat2;
+	delete mat3;
 	leavesView->Release();
 	brickView->Release();
+	stoneFence->Release();
 	sampler->Release();
 
 	for (int i = 0; i < entities.size(); i++)
 	{
 		delete entities[i];
 	}
+
 	for (int i = 0; i < targets.size(); i++)
 	{
 		delete targets[i];
+	}
+
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		delete nodes[i];
 	}
 }
 
@@ -89,6 +100,9 @@ void Game::Init()
 	CreateBasicGeometry();
 	camera = new Camera();	
 	camera->UpdateProjectionMatrix(width, height);	
+	player = new Player(XMFLOAT3(0.0f, 0.0f, -5.0f), camera);	
+	printf("Player Position: (%f, %f, %f)\n", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
+	printf("Camera Position: (%f, %f, %f)\n", player->GetCamera()->GetPosition().x, player->GetCamera()->GetPosition().y, player->GetCamera()->GetPosition().z);
 	prevMousePos.x = 0;
 	prevMousePos.y = 0;
 	isDown = false;
@@ -106,6 +120,24 @@ void Game::Init()
 		XMFLOAT4(1, 0, 0, 1),
 		XMFLOAT3(-1.8f, 1.0f, 0)
 	};
+
+	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 0.0f)));
+	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 2.0f)));
+	nodes.push_back(new Node(XMFLOAT3(1.0f, 0.0f, 3.0f)));
+	nodes.push_back(new Node(XMFLOAT3(1.0f, 0.0f, 5.0f)));
+	nodes.push_back(new Node(XMFLOAT3(3.0f, 0.0f, 2.0f)));
+
+	player->SetCurrent(nodes[0]);
+
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		if (i != nodes.size() - 1)
+			nodes[i]->SetNext(nodes[i + 1]);
+		else
+			nodes[i]->SetNext(nodes[0]);
+
+		printf("Location of next node: (%f, %f, %f)\n", nodes[i]->GetNext()->GetPosition().x, nodes[i]->GetNext()->GetPosition().y, nodes[i]->GetNext()->GetPosition().z);
+	}
 
 	// Tell the input assembler stage of the pipeline what kind of
 	// geometric primitives (points, lines or triangles) we want to draw.  
@@ -134,10 +166,12 @@ void Game::LoadShaders()
 
 	HRESULT texResult = CreateWICTextureFromFile(device, context, L"Assets/Textures/leaves.png", 0, &leavesView);
 	HRESULT texResult2 = CreateWICTextureFromFile(device, context, L"Assets/Textures/brick.jpg", 0, &brickView);
+	HRESULT texResult3 = CreateWICTextureFromFile(device, context, L"Assets/Textures/StoneFence.png", 0, &stoneFence);
 	HRESULT sampResult = device->CreateSamplerState(&description, &sampler);
 
 	mat = new Material(vertexShader, pixelShader, leavesView, sampler);
 	mat2 = new Material(vertexShader, pixelShader, brickView, sampler);
+	mat3 = new Material(vertexShader, pixelShader, stoneFence, sampler);
 
 	// You'll notice that the code above attempts to load each
 	// compiled shader file (.cso) from two different relative paths.
@@ -257,13 +291,21 @@ void Game::CreateBasicGeometry()
 
 	cone = new Mesh("Assets/Models/cone.obj", device);	
 	cube = new Mesh("Assets/Models/cube.obj", device);
+	ghost = new Mesh("Assets/Models/SpoopyGhost.obj", device);
+	fencePillar = new Mesh("Assets/Models/FencePillar.obj", device);
 
 	entities.push_back(new Entity(cone, mat));
 	entities.push_back(new Entity(cube, mat2));
-	targets.push_back(new Target(cube, mat));
+	entities.push_back(new Entity(ghost, mat));
+	entities.push_back(new Entity(fencePillar, mat3));
+
+	targets.push_back(new Target(cube, mat));	
 
 	entities[0]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 0.0f));
+	entities[2]->SetPositionVector(XMFLOAT3(0.0f, 1.0f, 4.0f));
+	entities[3]->SetPositionVector(XMFLOAT3(-5.0f, 0.0f, 0.0f));
+
 	targets[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 2.0f));
 }
 
@@ -292,6 +334,16 @@ void Game::Update(float deltaTime, float totalTime)
 
 	entities[1]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
 	
+	player->MoveToward(player->GetCurrent()->GetPosition(), 1.0f, deltaTime);
+	player->UpdateCameraPos();
+	
+	XMFLOAT3 length;
+	XMStoreFloat3(&length, XMVector3Length(XMLoadFloat3(&player->GetCurrent()->GetPosition()) - XMLoadFloat3(&player->GetPosition())));
+	
+	if (length.x <= player->GetCurrent()->GetRadius())
+	{
+		player->SetCurrent(player->GetCurrent()->GetNext());
+	}
 
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -357,7 +409,7 @@ void Game::Draw(float deltaTime, float totalTime)
 		"pLight",
 		&pLight,
 		sizeof(PointLight));
-	pixelShader->SetFloat3("CameraPosition", camera->GetPositon());
+	pixelShader->SetFloat3("CameraPosition", camera->GetPosition());
 
 	// Set buffers in the input assembler
 	//  - Do this ONCE PER OBJECT you're drawing, since each object might

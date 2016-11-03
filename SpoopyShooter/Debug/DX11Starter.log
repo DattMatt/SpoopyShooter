@@ -1,6 +1,15 @@
-﻿\\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\PixelShader.hlsl(57,2-66): warning X3206: implicit truncation of vector type
-\\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\PixelShader.hlsl(68,2-50): warning X3206: implicit truncation of vector type
-  
-  compilation object save succeeded; see \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\PixelShader.cso
-  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
-  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)
+﻿  Player.cpp
+  Node.cpp
+  Main.cpp
+  Game.cpp
+d:\spoopyshooter\spoopyshooter\game.cpp(65): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(70): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(105): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\spoopyshooter\spoopyshooter\game.cpp(110): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\spoopyshooter\spoopyshooter\game.cpp(127): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(339): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(410): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(474): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  Generating Code...
+  DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
+  DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)
