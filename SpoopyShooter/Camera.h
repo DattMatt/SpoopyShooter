@@ -1,5 +1,7 @@
 #pragma once
 #include <d3d11.h>
+#include "Target.h"
+#include <vector>
 #include <DirectXMath.h>
 
 using namespace DirectX;
@@ -48,5 +50,7 @@ public:
 	void StrafeLR(float amount, float dt);
 	void MoveUD(float amount, float dt);
 	void Rotate(float x, float y);
+
+	void Raycast(float mouseX, float mouseY, std::vector<Target*>& targets);
 };
 

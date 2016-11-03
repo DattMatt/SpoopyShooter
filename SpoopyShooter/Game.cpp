@@ -61,6 +61,10 @@ Game::~Game()
 	{
 		delete entities[i];
 	}
+	for (int i = 0; i < targets.size(); i++)
+	{
+		delete targets[i];
+	}
 }
 
 // --------------------------------------------------------
@@ -256,9 +260,11 @@ void Game::CreateBasicGeometry()
 
 	entities.push_back(new Entity(cone, mat));
 	entities.push_back(new Entity(cube, mat2));
+	targets.push_back(new Target(cube, mat));
 
 	entities[0]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 0.0f));
+	targets[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 2.0f));
 }
 
 
@@ -369,6 +375,17 @@ void Game::Draw(float deltaTime, float totalTime)
 			0,
 			0);
 	}
+	for (int i = 0; i < targets.size(); i++)
+	{
+		targets[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());
+		ID3D11Buffer* temp = targets[i]->GetMesh()->GetVertexBuffer();
+		context->IASetVertexBuffers(0, 1, &temp, &stride, &offset);
+		context->IASetIndexBuffer(targets[i]->GetMesh()->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
+		context->DrawIndexed(
+			targets[i]->GetMesh()->GetIndexCount(),
+			0,
+			0);
+	}
 	
 
 	// Present the back buffer to the user
@@ -389,6 +406,8 @@ void Game::OnMouseDown(WPARAM buttonState, int x, int y)
 {
 	// Add any custom code here...	
 	isDown = true;
+
+	camera->Raycast(x, y, targets);
 
 	// Save the previous mouse position, so we have it for the future
 	prevMousePos.x = x;

@@ -20,6 +20,8 @@ public:
 	ID3D11Buffer* vertexBuffer;
 	ID3D11Buffer* indexBuffer;
 
+	Vertex* verts;
+	int numVerts;
 	int numIndices;
 
 	ID3D11Buffer* GetVertexBuffer();

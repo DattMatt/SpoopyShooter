@@ -8,6 +8,8 @@ Mesh::Mesh(
 	ID3D11Device* device)
 {
 	numIndices = _numIndices;
+	numVerts = _numVertices;
+	verts = vertices;
 
 	CreateBuffers(vertices, _numVertices, indices, _numIndices, device);
 }

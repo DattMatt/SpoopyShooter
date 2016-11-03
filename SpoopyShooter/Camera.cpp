@@ -97,6 +97,72 @@ void Camera::Rotate(float x, float y) {
 	yRot += (y * 0.001);
 }
 
+void Camera::Raycast(float mouseX, float mouseY, std::vector<Target*>& targets)
+{
+	// Set origin to near plane and end to far plane
+	XMFLOAT4 origin = XMFLOAT4(mouseX, mouseY, 0, 1);
+	XMFLOAT4 end = XMFLOAT4(mouseX, mouseY, 1, 1);
+
+	// Load into XMMATRIX
+	XMMATRIX tempView = XMLoadFloat4x4(&viewMatrix);
+	XMMATRIX tempProj = XMLoadFloat4x4(&projectionMatrix);
+
+	// Get the inverse view-proj matrix
+	XMMATRIX viewProj = XMMatrixInverse(nullptr, XMMatrixMultiply(tempView, tempProj));
+
+	// Transform the end point to find the near and far 3d points
+	XMVECTOR point3DNear =  XMVector4Transform(XMVectorSet(origin.x, origin.y, origin.z, 1), viewProj);
+	XMVECTOR point3DFar = XMVector4Transform(XMVectorSet(end.x, end.y, end.z, 1), viewProj);
+	//XMVECTOR rayDir = XMVector4Normalize(XMVectorSubtract(XMVectorSet(position.x, position.y, position.z, 1), XMVectorSet(forward.x, forward.y, forward.z, 1)));
+
+	// Loop through targets to check for collisions
+	for (int i = 0; i < targets.size(); i++)
+	{
+		
+		XMVECTOR distObj = XMVectorSubtract(XMVectorSet(position.x, position.y, position.z, 1), XMVectorSet(targets[i]->GetCenterPoint().x, targets[i]->GetCenterPoint().y, targets[i]->GetCenterPoint().z, 1) );
+		/*
+		float B_half;
+		float C;
+		XMStoreFloat(&B_half, XMVector4Dot(distObj, rayDir));
+		XMStoreFloat(&C, XMVector4Dot(distObj, distObj));
+		float intersect = (B_half * B_half) - C;
+		printf("%f", C);
+		
+
+		float a;
+		XMStoreFloat(&a, XMVector4Dot(distObj, XMVectorSet(forward.x, forward.y, forward.z, 1)));
+		printf("%f", a);
+		if (a >= 0)
+		{
+			float disDot;
+			XMStoreFloat(&disDot, XMVector4Dot(distObj, distObj));
+			float d = sqrtf(disDot - (a * a));
+			if (d >= 0)
+			{
+				printf("HIT!!! ");
+			}
+			printf("%f", d);
+		}
+		*/
+		//printf("%f ", forward.x);
+		float proj;
+		XMStoreFloat(&proj, XMVector4Dot(distObj, XMVectorSet(forward.x, forward.y, forward.z, 1)));
+		XMVECTOR projVec = XMVector4Normalize(XMVectorSet(forward.x, forward.y, forward.z, 1));
+		projVec *= proj;
+		XMFLOAT4 fOTP;
+		XMStoreFloat4(&fOTP, XMVectorSubtract(distObj, projVec));
+		float distFromObjToProj = sqrtf(fOTP.x * fOTP.x + fOTP.y * fOTP.y + fOTP.z * fOTP.z);
+		printf("%f \n", distFromObjToProj);
+		printf("%f \n", targets[i]->GetRadius());
+
+		if (distFromObjToProj <= targets[i]->GetRadius())
+		{
+			printf("Hit \n");
+		}
+
+	}
+}
+
 void Camera::UpdateProjectionMatrix(unsigned int width, unsigned int height) {
 	XMMATRIX P = XMMatrixPerspectiveFovLH(
 		0.25f * 3.1415926535f,	// Field of View Angle
