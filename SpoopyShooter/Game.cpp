@@ -105,15 +105,16 @@ void Game::Init()
 	isDown = false;
 
 	// Load the cube map (without mipmaps!  Don't pass in the context)
-	//CreateDDSTextureFromFile(device, L"Assets/Textures/nightboxsky.dds", 0, &skySRV);
-	CreateDDSTextureFromFile(device, L"Debug/Textures/SunnyCubeMap.dds", 0, &skySRV);
+	CreateDDSTextureFromFile(device, L"Assets/Textures/nightboxsky.dds", 0, &skySRV);
+	//CreateDDSTextureFromFile(device, L"Debug/Textures/SunnyCubeMap.dds", 0, &skySRV);
 
 	description = {};
 	memset(&description, 0, sizeof(D3D11_SAMPLER_DESC));
 	description.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	description.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	description.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	description.Filter = D3D11_FILTER_ANISOTROPIC;
+	description.MaxAnisotropy = 16;
 	description.MaxLOD = D3D11_FLOAT32_MAX;
 
 	// Ask the device to create a state
@@ -330,10 +331,6 @@ void Game::CreateBasicGeometry()
 	Mesh* ghost = new Mesh("Assets/Models/SpoopyGhost.obj", device);
 	Mesh* fencePillar = new Mesh("Assets/Models/FencePillar.obj", device);
 
-
-	meshes.push_back(triangle);
-	meshes.push_back(square);
-	meshes.push_back(pentagon);
 	meshes.push_back(cone);
 	meshes.push_back(cube);
 	meshes.push_back(ghost);
