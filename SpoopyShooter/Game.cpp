@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "Vertex.h"
+#include "WICTextureLoader.h"
+#include "DDSTextureLoader.h"
 
 // For the DirectX Math library
 using namespace DirectX;
@@ -45,13 +47,8 @@ Game::~Game()
 	// will clean up their own internal DirectX stuff
 	delete vertexShader;
 	delete pixelShader;
-	delete triangle;
-	delete square;
-	delete pentagon;
-	delete cone;
-	delete cube;
-	delete ghost;
-	delete fencePillar;
+	delete skyVS;
+	delete skyPS;
 	delete camera;
 	delete player;
 	delete mat;
@@ -61,10 +58,18 @@ Game::~Game()
 	brickView->Release();
 	stoneFence->Release();
 	sampler->Release();
+	skySRV->Release();
+	skyDepthState->Release();
+	skyRastState->Release();
 
 	for (int i = 0; i < entities.size(); i++)
 	{
 		delete entities[i];
+	}
+
+	for (int i = 0; i < meshes.size(); i++)
+	{
+		delete meshes[i];
 	}
 
 	for (int i = 0; i < targets.size(); i++)
@@ -87,14 +92,6 @@ void Game::Init()
 	// Helper methods for loading shaders, creating some basic
 	// geometry to draw and some simple camera matrices.
 	//  - You'll be expanding and/or replacing these later
-	description = {};
-	memset(&description, 0, sizeof(D3D11_SAMPLER_DESC));
-	description.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-	description.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-	description.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-	description.MaxLOD = D3D11_FLOAT32_MAX;
-
 	LoadShaders();
 	CreateMatrices();
 	CreateBasicGeometry();
@@ -106,6 +103,37 @@ void Game::Init()
 	prevMousePos.x = 0;
 	prevMousePos.y = 0;
 	isDown = false;
+
+	// Load the cube map (without mipmaps!  Don't pass in the context)
+	//CreateDDSTextureFromFile(device, L"Assets/Textures/nightboxsky.dds", 0, &skySRV);
+	CreateDDSTextureFromFile(device, L"Debug/Textures/SunnyCubeMap.dds", 0, &skySRV);
+
+	description = {};
+	memset(&description, 0, sizeof(D3D11_SAMPLER_DESC));
+	description.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	description.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	description.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	description.MaxLOD = D3D11_FLOAT32_MAX;
+
+	// Ask the device to create a state
+	device->CreateSamplerState(&description, &sampler);
+	
+	// Create a rasterizer state so we can render backfaces
+	D3D11_RASTERIZER_DESC rsDesc = {};
+	rsDesc.FillMode = D3D11_FILL_SOLID;
+	rsDesc.CullMode = D3D11_CULL_FRONT;
+	rsDesc.DepthClipEnable = true;
+	device->CreateRasterizerState(&rsDesc, &skyRastState);
+
+	// Create a depth state so that we can accept pixels
+	// at a depth less than or EQUAL TO an existing depth
+	D3D11_DEPTH_STENCIL_DESC dsDesc = {};
+	dsDesc.DepthEnable = true;
+	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL; // Make sure we can see the sky (at max depth)
+	device->CreateDepthStencilState(&dsDesc, &skyDepthState);
+	
 	dirLight = {
 		XMFLOAT4(0.1,0.1,0.1,1.0),
 		XMFLOAT4(0,0,0,1),
@@ -163,6 +191,14 @@ void Game::LoadShaders()
 	pixelShader = new SimplePixelShader(device, context);
 	if(!pixelShader->LoadShaderFile(L"Debug/PixelShader.cso"))	
 		pixelShader->LoadShaderFile(L"PixelShader.cso");
+
+	skyVS = new SimpleVertexShader(device, context);
+	if (!skyVS->LoadShaderFile(L"Debug/SkyVS.cso"))
+		skyVS->LoadShaderFile(L"SkyVS.cso");
+
+	skyPS = new SimplePixelShader(device, context);
+	if (!skyPS->LoadShaderFile(L"Debug/SkyPS.cso"))
+		skyPS->LoadShaderFile(L"SkyPS.cso");
 
 	HRESULT texResult = CreateWICTextureFromFile(device, context, L"Assets/Textures/leaves.png", 0, &leavesView);
 	HRESULT texResult2 = CreateWICTextureFromFile(device, context, L"Assets/Textures/brick.jpg", 0, &brickView);
@@ -262,7 +298,7 @@ void Game::CreateBasicGeometry()
 	// - But just to see how it's done...
 	UINT tIndices[] = { 0, 1, 2 };	
 
-	triangle = new Mesh(tVertices, 3, tIndices, 3, device);
+	Mesh* triangle = new Mesh(tVertices, 3, tIndices, 3, device);
 
 	Vertex sVertices[] =
 	{
@@ -274,7 +310,7 @@ void Game::CreateBasicGeometry()
 
 	UINT sIndices[] = { 0, 1, 2, 0, 2, 3 };
 
-	square = new Mesh(sVertices, 4, sIndices, 6, device);
+	Mesh* square = new Mesh(sVertices, 4, sIndices, 6, device);
 
 	Vertex pVertices[] =
 	{
@@ -287,12 +323,21 @@ void Game::CreateBasicGeometry()
 
 	UINT pIndices[] = { 0, 1, 2, 0, 2, 3, 0, 3, 4 };
 
-	pentagon = new Mesh(pVertices, 5, pIndices, 9, device);
+	Mesh* pentagon = new Mesh(pVertices, 5, pIndices, 9, device);
 
-	cone = new Mesh("Assets/Models/cone.obj", device);	
-	cube = new Mesh("Assets/Models/cube.obj", device);
-	ghost = new Mesh("Assets/Models/SpoopyGhost.obj", device);
-	fencePillar = new Mesh("Assets/Models/FencePillar.obj", device);
+	Mesh* cone = new Mesh("Assets/Models/cone.obj", device);
+	Mesh* cube = new Mesh("Assets/Models/cube.obj", device);
+	Mesh* ghost = new Mesh("Assets/Models/SpoopyGhost.obj", device);
+	Mesh* fencePillar = new Mesh("Assets/Models/FencePillar.obj", device);
+
+
+	meshes.push_back(triangle);
+	meshes.push_back(square);
+	meshes.push_back(pentagon);
+	meshes.push_back(cone);
+	meshes.push_back(cube);
+	meshes.push_back(ghost);
+	meshes.push_back(fencePillar);
 
 	entities.push_back(new Entity(cone, mat));
 	entities.push_back(new Entity(cube, mat2));
@@ -438,7 +483,35 @@ void Game::Draw(float deltaTime, float totalTime)
 			0,
 			0);
 	}
-	
+
+	// After drawing objects - Draw the sky!
+
+	// Grab the buffers
+	ID3D11Buffer* skyVB = meshes[0]->GetVertexBuffer();
+	ID3D11Buffer* skyIB = meshes[0]->GetIndexBuffer();
+	context->IASetVertexBuffers(0, 1, &skyVB, &stride, &offset);
+	context->IASetIndexBuffer(skyIB, DXGI_FORMAT_R32_UINT, 0);
+
+	// Set up shaders
+	skyVS->SetMatrix4x4("view", camera->GetViewMatrix());
+	skyVS->SetMatrix4x4("projection", camera->GetProjectionMatrix());
+	skyVS->CopyAllBufferData();
+	skyVS->SetShader();
+
+	skyPS->SetShaderResourceView("Sky", skySRV);
+	skyPS->CopyAllBufferData();
+	skyPS->SetShader();
+
+	// Set the proper render states
+	context->RSSetState(skyRastState);
+	context->OMSetDepthStencilState(skyDepthState, 0);
+
+	// Actually draw
+	context->DrawIndexed(meshes[0]->GetIndexCount(), 0, 0);
+
+	// Reset the states!
+	context->RSSetState(0);
+	context->OMSetDepthStencilState(0, 0);
 
 	// Present the back buffer to the user
 	//  - Puts the final frame we're drawing into the window so the user can see it
