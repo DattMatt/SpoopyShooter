@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "Vertex.h"
+#include "WICTextureLoader.h"
+#include "DDSTextureLoader.h"
 
 // For the DirectX Math library
 using namespace DirectX;
@@ -46,20 +48,18 @@ Game::~Game()
 	delete vertexShader;
 	delete pixelShader;
 	delete particleVS;
-	delete particlePS;
-	delete triangle;
-	delete square;
-	delete pentagon;
-	delete cone;
-	delete cube;
-	delete ghost;
-	delete fencePillar;
+	delete particlePS;		
+	delete skyVS;
+	delete skyPS;
 	delete camera;
 	delete player;
 	delete mat;
 	delete mat2;
 	delete mat3;
-	delete emitter;
+	delete triangle;
+	delete square;
+	delete pentagon;
+	delete emitter;	
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();
@@ -67,10 +67,18 @@ Game::~Game()
 	cageTex->Release();
 	particleBlendState->Release();
 	particleDepthState->Release();
+	skySRV->Release();
+	skyDepthState->Release();
+	skyRastState->Release();
 
 	for (int i = 0; i < entities.size(); i++)
 	{
 		delete entities[i];
+	}
+
+	for (int i = 0; i < meshes.size(); i++)
+	{
+		delete meshes[i];
 	}
 
 	for (int i = 0; i < targets.size(); i++)
@@ -99,27 +107,7 @@ void Game::Init()
 	description.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	description.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 	description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-	description.MaxLOD = D3D11_FLOAT32_MAX;
-
-	D3D11_DEPTH_STENCIL_DESC dsDesc = {};
-	dsDesc.DepthEnable = true;
-	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO; // Turns off depth writing
-	dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
-	device->CreateDepthStencilState(&dsDesc, &particleDepthState);
-
-	// Blend for particles (additive)
-	D3D11_BLEND_DESC blend = {};
-	blend.AlphaToCoverageEnable = false;
-	blend.IndependentBlendEnable = false;
-	blend.RenderTarget[0].BlendEnable = true;
-	blend.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	blend.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
-	blend.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
-	blend.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	blend.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	blend.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
-	blend.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-	device->CreateBlendState(&blend, &particleBlendState);
+	description.MaxLOD = D3D11_FLOAT32_MAX;	
 
 	LoadShaders();
 	CreateMatrices();
@@ -132,6 +120,29 @@ void Game::Init()
 	prevMousePos.x = 0;
 	prevMousePos.y = 0;
 	isDown = false;
+
+	// Load the cube map (without mipmaps!  Don't pass in the context)
+	CreateDDSTextureFromFile(device, L"Assets/Textures/nightboxsky.dds", 0, &skySRV);
+
+	description = {};
+	memset(&description, 0, sizeof(D3D11_SAMPLER_DESC));
+	description.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	description.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	description.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	description.Filter = D3D11_FILTER_ANISOTROPIC;
+	description.MaxAnisotropy = 16;
+	description.MaxLOD = D3D11_FLOAT32_MAX;
+
+	// Ask the device to create a state
+	device->CreateSamplerState(&description, &sampler);
+	
+	// Create a rasterizer state so we can render backfaces
+	D3D11_RASTERIZER_DESC rsDesc = {};
+	rsDesc.FillMode = D3D11_FILL_SOLID;
+	rsDesc.CullMode = D3D11_CULL_FRONT;
+	rsDesc.DepthClipEnable = true;
+	device->CreateRasterizerState(&rsDesc, &skyRastState);	
+	
 	dirLight = {
 		XMFLOAT4(0.1,0.1,0.1,1.0),
 		XMFLOAT4(0,0,0,1),
@@ -156,7 +167,7 @@ void Game::Init()
 		XMFLOAT4(1, 0.1f, 0.1f, 0.08f),
 		XMFLOAT4(1, 0.6f, 0.1f, 0),
 		XMFLOAT3(-2, 2, 0),
-		XMFLOAT3(14, 0, 0),
+		XMFLOAT3(8, 0, 0),
 		XMFLOAT3(0, -1, 0),
 		device,
 		particleVS,
@@ -213,6 +224,13 @@ void Game::LoadShaders()
 	particlePS = new SimplePixelShader(device, context);
 	if (!particlePS->LoadShaderFile(L"Debug/ParticlePS.cso"))
 		particlePS->LoadShaderFile(L"ParticlePS.cso");
+	skyVS = new SimpleVertexShader(device, context);
+	if (!skyVS->LoadShaderFile(L"Debug/SkyVS.cso"))
+		skyVS->LoadShaderFile(L"SkyVS.cso");
+
+	skyPS = new SimplePixelShader(device, context);
+	if (!skyPS->LoadShaderFile(L"Debug/SkyPS.cso"))
+		skyPS->LoadShaderFile(L"SkyPS.cso");
 
 	HRESULT texResult = CreateWICTextureFromFile(device, context, L"Assets/Textures/leaves.png", 0, &leavesView);
 	HRESULT texResult2 = CreateWICTextureFromFile(device, context, L"Assets/Textures/brick.jpg", 0, &brickView);
@@ -340,15 +358,21 @@ void Game::CreateBasicGeometry()
 
 	pentagon = new Mesh(pVertices, 5, pIndices, 9, device);
 
-	cone = new Mesh("Assets/Models/cone.obj", device);	
-	cube = new Mesh("Assets/Models/cube.obj", device);
-	ghost = new Mesh("Assets/Models/SpoopyGhost.obj", device);
-	fencePillar = new Mesh("Assets/Models/FencePillar.obj", device);
+	Mesh* cone = new Mesh("Assets/Models/cone.obj", device);
+	Mesh* cube = new Mesh("Assets/Models/cube.obj", device);
+	Mesh* ghost = new Mesh("Assets/Models/SpoopyGhost.obj", device);
+	Mesh* fencePillar = new Mesh("Assets/Models/FencePillar.obj", device);
+
+	meshes.push_back(cone);
+	meshes.push_back(cube);
+	meshes.push_back(ghost);
+	meshes.push_back(fencePillar);
 
 	entities.push_back(new Entity(cone, mat));
 	entities.push_back(new Entity(cube, mat2));
 	entities.push_back(new Entity(ghost, mat));
 	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(square, mat));
 
 	targets.push_back(new Target(cube, mat));
 
@@ -491,14 +515,70 @@ void Game::Draw(float deltaTime, float totalTime)
 			0,
 			0);
 	}
+
+	D3D11_DEPTH_STENCIL_DESC dsDesc = {};
+	dsDesc.DepthEnable = true;
+	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO; // Turns off depth writing
+	dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
+	device->CreateDepthStencilState(&dsDesc, &particleDepthState);
+
+	// Blend for particles (additive)
+	D3D11_BLEND_DESC blend = {};
+	blend.AlphaToCoverageEnable = false;
+	blend.IndependentBlendEnable = false;
+	blend.RenderTarget[0].BlendEnable = true;
+	blend.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blend.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blend.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	device->CreateBlendState(&blend, &particleBlendState);
 	
-	float blend[4] = { 1,1,1,1 };
-	context->OMSetBlendState(particleBlendState, blend, 0xffffffff);
+	float fBlend[4] = { 1,1,1,1 };
+	context->OMSetBlendState(particleBlendState, fBlend, 0xffffffff);
 	context->OMSetDepthStencilState(particleDepthState, 0);
 
 	emitter->Draw(context, camera);
 
-	context->OMSetBlendState(0, blend, 0xffffffff);
+	context->OMSetBlendState(0, fBlend, 0xffffffff);
+	context->OMSetDepthStencilState(0, 0);
+	
+	// After drawing objects - Draw the sky!
+
+	// Create a depth state so that we can accept pixels
+	// at a depth less than or EQUAL TO an existing depth
+	dsDesc.DepthEnable = true;
+	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL; // Make sure we can see the sky (at max depth)
+	device->CreateDepthStencilState(&dsDesc, &skyDepthState);
+
+	// Grab the buffers
+	ID3D11Buffer* skyVB = meshes[0]->GetVertexBuffer();
+	ID3D11Buffer* skyIB = meshes[0]->GetIndexBuffer();
+	context->IASetVertexBuffers(0, 1, &skyVB, &stride, &offset);
+	context->IASetIndexBuffer(skyIB, DXGI_FORMAT_R32_UINT, 0);
+
+	// Set up shaders
+	skyVS->SetMatrix4x4("view", camera->GetViewMatrix());
+	skyVS->SetMatrix4x4("projection", camera->GetProjectionMatrix());
+	skyVS->CopyAllBufferData();
+	skyVS->SetShader();
+
+	skyPS->SetShaderResourceView("Sky", skySRV);
+	skyPS->CopyAllBufferData();
+	skyPS->SetShader();
+
+	// Set the proper render states
+	context->RSSetState(skyRastState);
+	context->OMSetDepthStencilState(skyDepthState, 0);
+
+	// Actually draw
+	context->DrawIndexed(meshes[0]->GetIndexCount(), 0, 0);
+
+	// Reset the states!
+	context->RSSetState(0);
 	context->OMSetDepthStencilState(0, 0);
 
 	// Present the back buffer to the user

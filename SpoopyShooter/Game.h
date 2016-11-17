@@ -46,19 +46,12 @@ public:
 
 private:
 
-	Mesh* triangle;
-	Mesh* square;
-	Mesh* pentagon;	
-	Mesh* cone;
-	Mesh* cube;
-	Mesh* ghost;
-	Mesh* fencePillar;
-
 	Material* mat;
 	Material* mat2;
 	Material* mat3;
 
 	std::vector<Entity*> entities;
+	std::vector<Mesh*> meshes;
 	std::vector<Target*> targets;
 	std::vector<Node*> nodes;
 
@@ -68,6 +61,7 @@ private:
 	ID3D11ShaderResourceView* leavesView;
 	ID3D11ShaderResourceView* brickView;
 	ID3D11ShaderResourceView* stoneFence;
+	ID3D11ShaderResourceView* skySRV;
 	ID3D11SamplerState* sampler;
 	D3D11_SAMPLER_DESC description;
 
@@ -77,6 +71,8 @@ private:
 	ID3D11DepthStencilState* particleDepthState;
 	ID3D11BlendState* particleBlendState;
 	Emitter* emitter;
+	ID3D11RasterizerState* skyRastState;
+	ID3D11DepthStencilState* skyDepthState;
 
 	// Initialization helper methods - feel free to customize, combine, etc.
 	void LoadShaders(); 
@@ -86,11 +82,17 @@ private:
 	// Wrappers for DirectX shaders to provide simplified functionality
 	SimpleVertexShader* vertexShader;
 	SimplePixelShader* pixelShader;
+	SimpleVertexShader* skyVS;
+	SimplePixelShader* skyPS;
 
 	DirectionalLight dirLight;
 	DirectionalLight dirLight2;
 
 	PointLight pLight;
+
+	Mesh* triangle;
+	Mesh* square;
+	Mesh* pentagon;
 
 	// The matrices to go from model space to screen space
 	DirectX::XMFLOAT4X4 worldMatrix;
