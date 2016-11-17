@@ -9,6 +9,7 @@
 #include "Node.h"
 #include "Player.h"
 #include "WICTextureLoader.h"
+#include "Emitter.h"
 #include <DirectXMath.h>
 
 class Game 
@@ -69,6 +70,13 @@ private:
 	ID3D11ShaderResourceView* stoneFence;
 	ID3D11SamplerState* sampler;
 	D3D11_SAMPLER_DESC description;
+
+	ID3D11ShaderResourceView* cageTex;
+	SimpleVertexShader* particleVS;
+	SimplePixelShader* particlePS;
+	ID3D11DepthStencilState* particleDepthState;
+	ID3D11BlendState* particleBlendState;
+	Emitter* emitter;
 
 	// Initialization helper methods - feel free to customize, combine, etc.
 	void LoadShaders(); 

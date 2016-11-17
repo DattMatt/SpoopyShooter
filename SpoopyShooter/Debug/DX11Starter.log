@@ -1,15 +1,14 @@
-﻿  Player.cpp
-  Node.cpp
-  Main.cpp
-  Game.cpp
-d:\spoopyshooter\spoopyshooter\game.cpp(65): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(70): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(105): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\spoopyshooter\spoopyshooter\game.cpp(110): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\spoopyshooter\spoopyshooter\game.cpp(127): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(339): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(410): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(474): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-  Generating Code...
+﻿  Game.cpp
+d:\spoopyshooter\spoopyshooter\game.cpp(71): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(76): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(81): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(136): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\spoopyshooter\spoopyshooter\game.cpp(141): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\spoopyshooter\spoopyshooter\game.cpp(174): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(399): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(472): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(483): warning C4018: '<': signed/unsigned mismatch
+d:\spoopyshooter\spoopyshooter\game.cpp(523): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\spoopyshooter\spoopyshooter\game.cpp(557): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
   DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)

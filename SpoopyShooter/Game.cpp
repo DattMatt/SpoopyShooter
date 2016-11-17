@@ -45,6 +45,8 @@ Game::~Game()
 	// will clean up their own internal DirectX stuff
 	delete vertexShader;
 	delete pixelShader;
+	delete particleVS;
+	delete particlePS;
 	delete triangle;
 	delete square;
 	delete pentagon;
@@ -57,10 +59,14 @@ Game::~Game()
 	delete mat;
 	delete mat2;
 	delete mat3;
+	delete emitter;
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();
 	sampler->Release();
+	cageTex->Release();
+	particleBlendState->Release();
+	particleDepthState->Release();
 
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -95,6 +101,26 @@ void Game::Init()
 	description.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
 	description.MaxLOD = D3D11_FLOAT32_MAX;
 
+	D3D11_DEPTH_STENCIL_DESC dsDesc = {};
+	dsDesc.DepthEnable = true;
+	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO; // Turns off depth writing
+	dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
+	device->CreateDepthStencilState(&dsDesc, &particleDepthState);
+
+	// Blend for particles (additive)
+	D3D11_BLEND_DESC blend = {};
+	blend.AlphaToCoverageEnable = false;
+	blend.IndependentBlendEnable = false;
+	blend.RenderTarget[0].BlendEnable = true;
+	blend.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blend.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blend.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	device->CreateBlendState(&blend, &particleBlendState);
+
 	LoadShaders();
 	CreateMatrices();
 	CreateBasicGeometry();
@@ -120,6 +146,22 @@ void Game::Init()
 		XMFLOAT4(1, 0, 0, 1),
 		XMFLOAT3(-1.8f, 1.0f, 0)
 	};
+
+	emitter = new Emitter(
+		500,
+		10,
+		5,
+		6.0f,
+		0.5f,
+		XMFLOAT4(1, 0.1f, 0.1f, 0.08f),
+		XMFLOAT4(1, 0.6f, 0.1f, 0),
+		XMFLOAT3(-2, 2, 0),
+		XMFLOAT3(14, 0, 0),
+		XMFLOAT3(0, -1, 0),
+		device,
+		particleVS,
+		particlePS,
+		cageTex);
 
 	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 0.0f)));
 	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 2.0f)));
@@ -164,9 +206,18 @@ void Game::LoadShaders()
 	if(!pixelShader->LoadShaderFile(L"Debug/PixelShader.cso"))	
 		pixelShader->LoadShaderFile(L"PixelShader.cso");
 
+	particleVS = new SimpleVertexShader(device, context);
+	if (!particleVS->LoadShaderFile(L"Debug/ParticleVS.cso"))
+		particleVS->LoadShaderFile(L"ParticleVS.cso");
+
+	particlePS = new SimplePixelShader(device, context);
+	if (!particlePS->LoadShaderFile(L"Debug/ParticlePS.cso"))
+		particlePS->LoadShaderFile(L"ParticlePS.cso");
+
 	HRESULT texResult = CreateWICTextureFromFile(device, context, L"Assets/Textures/leaves.png", 0, &leavesView);
 	HRESULT texResult2 = CreateWICTextureFromFile(device, context, L"Assets/Textures/brick.jpg", 0, &brickView);
 	HRESULT texResult3 = CreateWICTextureFromFile(device, context, L"Assets/Textures/StoneFence.png", 0, &stoneFence);
+	CreateWICTextureFromFile(device, context, L"Assets/Textures/cage.png", 0, &cageTex);
 	HRESULT sampResult = device->CreateSamplerState(&description, &sampler);
 
 	mat = new Material(vertexShader, pixelShader, leavesView, sampler);
@@ -350,6 +401,8 @@ void Game::Update(float deltaTime, float totalTime)
 		entities[i]->ReconstructWorldMatrix();
 	}
 
+	emitter->Update(deltaTime);
+
 	camera->Update(deltaTime);
 }
 
@@ -439,6 +492,14 @@ void Game::Draw(float deltaTime, float totalTime)
 			0);
 	}
 	
+	float blend[4] = { 1,1,1,1 };
+	context->OMSetBlendState(particleBlendState, blend, 0xffffffff);
+	context->OMSetDepthStencilState(particleDepthState, 0);
+
+	emitter->Draw(context, camera);
+
+	context->OMSetBlendState(0, blend, 0xffffffff);
+	context->OMSetDepthStencilState(0, 0);
 
 	// Present the back buffer to the user
 	//  - Puts the final frame we're drawing into the window so the user can see it
