@@ -1,0 +1,6 @@
+﻿\\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\SpoopyShooter\SpoopyShooter\PixelShader.hlsl(59,2-66): warning X3206: implicit truncation of vector type
+\\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\SpoopyShooter\SpoopyShooter\PixelShader.hlsl(70,2-50): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\SpoopyShooter\SpoopyShooter\x64\Debug\PixelShader.cso
+  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.exe
+  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.pdb (Full PDB)

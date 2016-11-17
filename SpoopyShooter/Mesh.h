@@ -5,6 +5,8 @@
 #include <DirectXMath.h>
 #include "Vertex.h"
 
+using namespace DirectX;
+
 class Mesh
 {
 public:
@@ -30,5 +32,6 @@ public:
 	int GetIndexCount();
 
 	void CreateBuffers(Vertex* vertices, int _numVertices, UINT* indices, int numIndices, ID3D11Device* device);
+	void CalculateTangents(Vertex* verts, int numVerts, UINT* indices, int numIndices);
 };
 

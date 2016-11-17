@@ -54,13 +54,17 @@ Game::~Game()
 	delete mat;
 	delete mat2;
 	delete mat3;
+	delete mat4;
+	delete matNormal;
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();
+	barkView->Release();
 	sampler->Release();
 	skySRV->Release();
 	skyDepthState->Release();
 	skyRastState->Release();
+	normalMapTest->Release();
 
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -204,11 +208,15 @@ void Game::LoadShaders()
 	HRESULT texResult = CreateWICTextureFromFile(device, context, L"Assets/Textures/leaves.png", 0, &leavesView);
 	HRESULT texResult2 = CreateWICTextureFromFile(device, context, L"Assets/Textures/brick.jpg", 0, &brickView);
 	HRESULT texResult3 = CreateWICTextureFromFile(device, context, L"Assets/Textures/StoneFence.png", 0, &stoneFence);
+	HRESULT texResult4 = CreateWICTextureFromFile(device, context, L"Assets/Textures/bark.tif", 0, &barkView);
+	HRESULT normResult = CreateWICTextureFromFile(device, context, L"Assets/Textures/barkNormalmap.tif", 0, &normalMapTest);
 	HRESULT sampResult = device->CreateSamplerState(&description, &sampler);
 
 	mat = new Material(vertexShader, pixelShader, leavesView, sampler);
 	mat2 = new Material(vertexShader, pixelShader, brickView, sampler);
 	mat3 = new Material(vertexShader, pixelShader, stoneFence, sampler);
+	mat4 = new Material(vertexShader, pixelShader, barkView, normalMapTest, sampler);
+	//matNormal = new Material(vertexShader, pixelShader, normalMapTest, sampler);
 
 	// You'll notice that the code above attempts to load each
 	// compiled shader file (.cso) from two different relative paths.
@@ -330,18 +338,19 @@ void Game::CreateBasicGeometry()
 	Mesh* cube = new Mesh("Assets/Models/cube.obj", device);
 	Mesh* ghost = new Mesh("Assets/Models/SpoopyGhost.obj", device);
 	Mesh* fencePillar = new Mesh("Assets/Models/FencePillar.obj", device);
+	
 
 	meshes.push_back(cone);
 	meshes.push_back(cube);
 	meshes.push_back(ghost);
 	meshes.push_back(fencePillar);
 
-	entities.push_back(new Entity(cone, mat));
-	entities.push_back(new Entity(cube, mat2));
-	entities.push_back(new Entity(ghost, mat));
-	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(cone, mat4));
+	entities.push_back(new Entity(cube, mat4));
+	entities.push_back(new Entity(ghost, mat2));
+	entities.push_back(new Entity(fencePillar, mat4));
 
-	targets.push_back(new Target(cube, mat));
+	targets.push_back(new Target(cube, mat4));
 
 	entities[0]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 0.0f));

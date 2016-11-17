@@ -7,9 +7,9 @@
 // - The name of the cbuffer itself is unimportant
 cbuffer externalData : register(b0)
 {
-	matrix world;
-	matrix view;
-	matrix projection;
+	float4x4 world;
+	float4x4 view;
+	float4x4 projection;
 };
 
 // Struct representing a single vertex worth of data
@@ -27,6 +27,7 @@ struct VertexShaderInput
 	float3 position		: POSITION;     // XYZ position
 	float3 normal		: NORMAL;       // Normal
 	float2 uv           : TEXCOORD;     // UV
+	float3 tangent		: TANGENT;		// Tangent
 };
 
 // Struct representing the data we're sending down the pipeline
@@ -43,8 +44,10 @@ struct VertexToPixel
 	//  v    v                v
 	float4 position		: SV_POSITION;	// XYZW position (System Value Position)
 	float3 normal       : NORMAL;	
+	float3 tangent		: TANGENT;
 	float3 worldPos     : POSITION;
 	float2 uv			: TEXCOORD;
+	
 };
 
 // --------------------------------------------------------
@@ -66,7 +69,7 @@ VertexToPixel main( VertexShaderInput input )
 	//
 	// First we multiply them together to get a single matrix which represents
 	// all of those transformations (world to view to projection space)
-	matrix worldViewProj = mul(mul(world, view), projection);
+	float4x4 worldViewProj = mul(mul(world, view), projection);
 
 	// Then we convert our 3-component position vector to a 4-component vector
 	// and multiply it by our final 4x4 matrix.
@@ -75,10 +78,13 @@ VertexToPixel main( VertexShaderInput input )
 	// screen and the distance (Z) from the camera (the "depth" of the pixel)
 	output.position = mul(float4(input.position, 1.0f), worldViewProj);
 
+	output.normal = mul(input.normal, (float3x3)world);
+	output.tangent = mul(input.tangent, (float3x3)world); // For NormalMapping
+
 	//Calc the world position of the vert
 	output.worldPos = mul(float4(input.position, 1), world).xyz;
 
-	output.normal = mul(input.normal, (float3x3)world);
+	
 	output.normal = normalize(output.normal);
 
 	output.uv = input.uv;

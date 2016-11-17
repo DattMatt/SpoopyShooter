@@ -47,6 +47,8 @@ private:
 	Material* mat;
 	Material* mat2;
 	Material* mat3;
+	Material* mat4;
+	Material* matNormal;
 
 	std::vector<Entity*> entities;
 	std::vector<Mesh*> meshes;
@@ -60,6 +62,8 @@ private:
 	ID3D11ShaderResourceView* brickView;
 	ID3D11ShaderResourceView* stoneFence;
 	ID3D11ShaderResourceView* skySRV;
+	ID3D11ShaderResourceView* barkView;
+	ID3D11ShaderResourceView* normalMapTest;
 	ID3D11SamplerState* sampler;
 	D3D11_SAMPLER_DESC description;
 
