@@ -1,15 +1,17 @@
-﻿  Game.cpp
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(65): warning C4018: '<': signed/unsigned mismatch
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(70): warning C4018: '<': signed/unsigned mismatch
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(75): warning C4018: '<': signed/unsigned mismatch
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(80): warning C4018: '<': signed/unsigned mismatch
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(139): warning C4305: 'argument': truncation from 'double' to 'float'
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(144): warning C4305: 'argument': truncation from 'double' to 'float'
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(161): warning C4018: '<': signed/unsigned mismatch
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(390): warning C4018: '<': signed/unsigned mismatch
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(461): warning C4018: '<': signed/unsigned mismatch
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(472): warning C4018: '<': signed/unsigned mismatch
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(532): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(566): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+﻿  Main.cpp
+  Game.cpp
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(68): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(73): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(78): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(83): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(141): warning C4305: 'argument': truncation from 'double' to 'float'
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(146): warning C4305: 'argument': truncation from 'double' to 'float'
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(163): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(393): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(464): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(475): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(535): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(569): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  Generating Code...
   DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)

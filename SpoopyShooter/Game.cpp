@@ -54,6 +54,9 @@ Game::~Game()
 	delete mat;
 	delete mat2;
 	delete mat3;
+	delete triangle;
+	delete square;
+	delete pentagon;
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();
@@ -106,7 +109,6 @@ void Game::Init()
 
 	// Load the cube map (without mipmaps!  Don't pass in the context)
 	CreateDDSTextureFromFile(device, L"Assets/Textures/nightboxsky.dds", 0, &skySRV);
-	//CreateDDSTextureFromFile(device, L"Debug/Textures/SunnyCubeMap.dds", 0, &skySRV);
 
 	description = {};
 	memset(&description, 0, sizeof(D3D11_SAMPLER_DESC));
@@ -299,7 +301,7 @@ void Game::CreateBasicGeometry()
 	// - But just to see how it's done...
 	UINT tIndices[] = { 0, 1, 2 };	
 
-	Mesh* triangle = new Mesh(tVertices, 3, tIndices, 3, device);
+	triangle = new Mesh(tVertices, 3, tIndices, 3, device);
 
 	Vertex sVertices[] =
 	{
@@ -311,7 +313,7 @@ void Game::CreateBasicGeometry()
 
 	UINT sIndices[] = { 0, 1, 2, 0, 2, 3 };
 
-	Mesh* square = new Mesh(sVertices, 4, sIndices, 6, device);
+	square = new Mesh(sVertices, 4, sIndices, 6, device);
 
 	Vertex pVertices[] =
 	{
@@ -324,7 +326,7 @@ void Game::CreateBasicGeometry()
 
 	UINT pIndices[] = { 0, 1, 2, 0, 2, 3, 0, 3, 4 };
 
-	Mesh* pentagon = new Mesh(pVertices, 5, pIndices, 9, device);
+	pentagon = new Mesh(pVertices, 5, pIndices, 9, device);
 
 	Mesh* cone = new Mesh("Assets/Models/cone.obj", device);
 	Mesh* cube = new Mesh("Assets/Models/cube.obj", device);
@@ -340,6 +342,7 @@ void Game::CreateBasicGeometry()
 	entities.push_back(new Entity(cube, mat2));
 	entities.push_back(new Entity(ghost, mat));
 	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(square, mat));
 
 	targets.push_back(new Target(cube, mat));
 

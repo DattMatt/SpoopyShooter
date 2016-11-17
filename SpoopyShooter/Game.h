@@ -82,6 +82,10 @@ private:
 
 	PointLight pLight;
 
+	Mesh* triangle;
+	Mesh* square;
+	Mesh* pentagon;
+
 	// The matrices to go from model space to screen space
 	DirectX::XMFLOAT4X4 worldMatrix;
 	DirectX::XMFLOAT4X4 viewMatrix;
