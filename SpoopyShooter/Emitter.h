@@ -45,9 +45,9 @@ public:
 	~Emitter();
 
 	void Update(float dt);
-	void UpdateSingle(float dt, int index);
+	virtual void UpdateSingle(float dt, int index);
 
-	void Spawn();
+	virtual void Spawn();
 
 	void CopyPartToGPU(ID3D11DeviceContext* context);
 	void CopyOneParticle(int index);

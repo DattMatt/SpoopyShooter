@@ -9,7 +9,7 @@ d:\spoopyshooter\spoopyshooter\game.cpp(185): warning C4018: '<': signed/unsigne
 d:\spoopyshooter\spoopyshooter\game.cpp(423): warning C4018: '<': signed/unsigned mismatch
 d:\spoopyshooter\spoopyshooter\game.cpp(496): warning C4018: '<': signed/unsigned mismatch
 d:\spoopyshooter\spoopyshooter\game.cpp(507): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(603): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\spoopyshooter\spoopyshooter\game.cpp(637): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+d:\spoopyshooter\spoopyshooter\game.cpp(605): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\spoopyshooter\spoopyshooter\game.cpp(639): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
   DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)

@@ -65,7 +65,7 @@ private:
 	ID3D11SamplerState* sampler;
 	D3D11_SAMPLER_DESC description;
 
-	ID3D11ShaderResourceView* cageTex;
+	ID3D11ShaderResourceView* partTex;
 	SimpleVertexShader* particleVS;
 	SimplePixelShader* particlePS;
 	ID3D11DepthStencilState* particleDepthState;

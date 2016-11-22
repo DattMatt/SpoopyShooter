@@ -130,6 +130,7 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SimpleShader.cpp" />
+    <ClCompile Include="SmokeEmitter.cpp" />
     <ClCompile Include="Target.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SimpleShader.h" />
+    <ClInclude Include="SmokeEmitter.h" />
     <ClInclude Include="Target.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>

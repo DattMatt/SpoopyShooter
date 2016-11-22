@@ -64,7 +64,7 @@ Game::~Game()
 	brickView->Release();
 	stoneFence->Release();
 	sampler->Release();
-	cageTex->Release();
+	partTex->Release();
 	particleBlendState->Release();
 	particleDepthState->Release();
 	skySRV->Release();
@@ -172,7 +172,7 @@ void Game::Init()
 		device,
 		particleVS,
 		particlePS,
-		cageTex);
+		partTex);
 
 	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 0.0f)));
 	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 2.0f)));
@@ -235,7 +235,7 @@ void Game::LoadShaders()
 	HRESULT texResult = CreateWICTextureFromFile(device, context, L"Assets/Textures/leaves.png", 0, &leavesView);
 	HRESULT texResult2 = CreateWICTextureFromFile(device, context, L"Assets/Textures/brick.jpg", 0, &brickView);
 	HRESULT texResult3 = CreateWICTextureFromFile(device, context, L"Assets/Textures/StoneFence.png", 0, &stoneFence);
-	CreateWICTextureFromFile(device, context, L"Assets/Textures/cage.png", 0, &cageTex);
+	CreateWICTextureFromFile(device, context, L"Assets/Textures/circleParticle.jpg", 0, &partTex);
 	HRESULT sampResult = device->CreateSamplerState(&description, &sampler);
 
 	mat = new Material(vertexShader, pixelShader, leavesView, sampler);
@@ -516,39 +516,13 @@ void Game::Draw(float deltaTime, float totalTime)
 			0);
 	}
 
-	D3D11_DEPTH_STENCIL_DESC dsDesc = {};
-	dsDesc.DepthEnable = true;
-	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO; // Turns off depth writing
-	dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
-	device->CreateDepthStencilState(&dsDesc, &particleDepthState);
-
-	// Blend for particles (additive)
-	D3D11_BLEND_DESC blend = {};
-	blend.AlphaToCoverageEnable = false;
-	blend.IndependentBlendEnable = false;
-	blend.RenderTarget[0].BlendEnable = true;
-	blend.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	blend.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
-	blend.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
-	blend.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	blend.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	blend.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
-	blend.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-	device->CreateBlendState(&blend, &particleBlendState);
 	
-	float fBlend[4] = { 1,1,1,1 };
-	context->OMSetBlendState(particleBlendState, fBlend, 0xffffffff);
-	context->OMSetDepthStencilState(particleDepthState, 0);
-
-	emitter->Draw(context, camera);
-
-	context->OMSetBlendState(0, fBlend, 0xffffffff);
-	context->OMSetDepthStencilState(0, 0);
 	
 	// After drawing objects - Draw the sky!
 
 	// Create a depth state so that we can accept pixels
 	// at a depth less than or EQUAL TO an existing depth
+	D3D11_DEPTH_STENCIL_DESC dsDesc = {};
 	dsDesc.DepthEnable = true;
 	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 	dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL; // Make sure we can see the sky (at max depth)
@@ -579,6 +553,34 @@ void Game::Draw(float deltaTime, float totalTime)
 
 	// Reset the states!
 	context->RSSetState(0);
+	context->OMSetDepthStencilState(0, 0);
+	
+	dsDesc.DepthEnable = true;
+	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO; // Turns off depth writing
+	dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
+	device->CreateDepthStencilState(&dsDesc, &particleDepthState);
+
+	// Blend for particles (additive)
+	D3D11_BLEND_DESC blend = {};
+	blend.AlphaToCoverageEnable = false;
+	blend.IndependentBlendEnable = false;
+	blend.RenderTarget[0].BlendEnable = true;
+	blend.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blend.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blend.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	device->CreateBlendState(&blend, &particleBlendState);
+
+	float fBlend[4] = { 1,1,1,1 };
+	context->OMSetBlendState(particleBlendState, fBlend, 0xffffffff);
+	context->OMSetDepthStencilState(particleDepthState, 0);
+
+	emitter->Draw(context, camera);
+
+	context->OMSetBlendState(0, fBlend, 0xffffffff);
 	context->OMSetDepthStencilState(0, 0);
 
 	// Present the back buffer to the user
