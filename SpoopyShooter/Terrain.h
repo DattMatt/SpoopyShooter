@@ -7,11 +7,11 @@
 class Terrain
 {
 	int size;
+	int gridSize;
 	int heightScale;
-	std::vector<unsigned char> heights;
 	std::vector<float> finalHeights;
-	Vertex* verticies;
-	UINT* indicies;
+	Vertex vertices[1024];
+	UINT indicies[6 * 32 * 32];
 	Mesh* terrMesh;
 
 public:
@@ -20,6 +20,7 @@ public:
 	void LoadRAW();
 	void genVerticies();
 	void genIndicies();
+	void calculateNormals();
 	Mesh* getMesh();
 };
 

@@ -116,7 +116,7 @@ void Game::Init()
 	camera = new Camera();	
 	camera->UpdateProjectionMatrix(width, height);	
 	player = new Player(XMFLOAT3(0.0f, 0.0f, -5.0f), camera);
-	terr = new Terrain(512, 50, device);
+	terr = new Terrain(513, 50, device);
 	printf("Player Position: (%f, %f, %f)\n", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
 	printf("Camera Position: (%f, %f, %f)\n", player->GetCamera()->GetPosition().x, player->GetCamera()->GetPosition().y, player->GetCamera()->GetPosition().z);
 	prevMousePos.x = 0;

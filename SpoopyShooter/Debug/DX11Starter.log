@@ -1,5 +1,7 @@
 ﻿  Terrain.cpp
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\terrain.cpp(44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\terrain.cpp(57): warning C4700: uninitialized local variable 'ti' used
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\terrain.cpp(45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  DXCore.cpp
   DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)
