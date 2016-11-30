@@ -60,6 +60,7 @@ Game::~Game()
 	delete square;
 	delete pentagon;
 	delete emitter;	
+	delete terr;
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();
@@ -114,7 +115,8 @@ void Game::Init()
 	CreateBasicGeometry();
 	camera = new Camera();	
 	camera->UpdateProjectionMatrix(width, height);	
-	player = new Player(XMFLOAT3(0.0f, 0.0f, -5.0f), camera);	
+	player = new Player(XMFLOAT3(0.0f, 0.0f, -5.0f), camera);
+	terr = new Terrain(512, 50, device);
 	printf("Player Position: (%f, %f, %f)\n", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
 	printf("Camera Position: (%f, %f, %f)\n", player->GetCamera()->GetPosition().x, player->GetCamera()->GetPosition().y, player->GetCamera()->GetPosition().z);
 	prevMousePos.x = 0;
@@ -493,6 +495,12 @@ void Game::Draw(float deltaTime, float totalTime)
 	//    have different geometry.
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
+
+	ID3D11Buffer* temp = terr->getMesh()->GetVertexBuffer();
+	context->IASetVertexBuffers(0, 1, &temp, &stride, &offset);
+	context->IASetIndexBuffer(terr->getMesh()->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
+	context->DrawIndexed(terr->getMesh()->GetIndexCount(), 0, 0);
+
 	for (int i = 0; i < entities.size(); i++)
 	{		
 		entities[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());	

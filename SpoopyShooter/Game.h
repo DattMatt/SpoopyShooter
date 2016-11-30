@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "WICTextureLoader.h"
 #include "Emitter.h"
+#include "Terrain.h"
 #include <DirectXMath.h>
 
 class Game 
@@ -57,6 +58,8 @@ private:
 
 	Camera* camera;
 	Player* player;
+
+	Terrain* terr;
 
 	ID3D11ShaderResourceView* leavesView;
 	ID3D11ShaderResourceView* brickView;
