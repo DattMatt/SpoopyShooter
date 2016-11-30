@@ -22,6 +22,7 @@
     <ClCompile Include="SimpleShader.cpp" />
     <ClCompile Include="Target.cpp" />
     <ClCompile Include="SmokeEmitter.cpp" />
+    <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -38,6 +39,7 @@
     <ClInclude Include="Target.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="SmokeEmitter.h" />
+    <ClInclude Include="Terrain.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

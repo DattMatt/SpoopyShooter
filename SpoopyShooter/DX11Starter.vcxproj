@@ -132,6 +132,7 @@
     <ClCompile Include="SimpleShader.cpp" />
     <ClCompile Include="SmokeEmitter.cpp" />
     <ClCompile Include="Target.cpp" />
+    <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="SimpleShader.h" />
     <ClInclude Include="SmokeEmitter.h" />
     <ClInclude Include="Target.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>

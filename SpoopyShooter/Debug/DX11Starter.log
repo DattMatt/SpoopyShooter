@@ -1,15 +1,5 @@
-﻿  Game.cpp
-d:\spoopyshooter\spoopyshooter\game.cpp(74): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(79): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(84): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(89): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(147): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\spoopyshooter\spoopyshooter\game.cpp(152): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\spoopyshooter\spoopyshooter\game.cpp(185): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(423): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(496): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(507): warning C4018: '<': signed/unsigned mismatch
-d:\spoopyshooter\spoopyshooter\game.cpp(605): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\spoopyshooter\spoopyshooter\game.cpp(639): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-  DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
-  DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)
+﻿  Terrain.cpp
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\terrain.cpp(44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\terrain.cpp(57): warning C4700: uninitialized local variable 'ti' used
+  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
+  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)
