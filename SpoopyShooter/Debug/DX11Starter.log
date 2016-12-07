@@ -1,7 +1,20 @@
 ﻿  Terrain.cpp
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\terrain.cpp(45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\terrain.cpp(33): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\terrain.cpp(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Main.cpp
+  Game.cpp
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(75): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(80): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(85): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(90): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(149): warning C4305: 'argument': truncation from 'double' to 'float'
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(154): warning C4305: 'argument': truncation from 'double' to 'float'
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(187): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(425): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(504): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(515): warning C4018: '<': signed/unsigned mismatch
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(613): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(647): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
   Generating Code...
-  Skipping... (no relevant changes detected)
-  DXCore.cpp
   DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)

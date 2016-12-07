@@ -6,20 +6,22 @@
 
 class Terrain
 {
-	int size;
-	int gridSize;
+	int xSize;
+	int zSize;
 	int heightScale;
+	int numVerts;
+	int numInd;
 	std::vector<float> finalHeights;
-	Vertex vertices[1024];
-	UINT indicies[6 * 32 * 32];
+	Vertex vertices[512 * 512];
+	UINT indices[512 * 512 * 6];
 	Mesh* terrMesh;
 
 public:
-	Terrain(int _size, int _heightScale, ID3D11Device* _device);
+	Terrain(int _xSize, int _zSize, int _heightScale, ID3D11Device* _device);
 	~Terrain();
 	void LoadRAW();
-	void genVerticies();
-	void genIndicies();
+	void genVertices();
+	void genIndices();
 	void calculateNormals();
 	Mesh* getMesh();
 };

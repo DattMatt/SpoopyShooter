@@ -1,15 +1,16 @@
 #include "Terrain.h"
 
-Terrain::Terrain(int _size, int _heightScale, ID3D11Device* _device)
+Terrain::Terrain(int _xSize, int _zSize, int _heightScale, ID3D11Device* _device)
 {
-	size = _size;
-	gridSize = 32;
+	xSize = _xSize;
+	zSize = _zSize;
+	numVerts = 0;
+	numInd = 0;
 	heightScale = _heightScale;
-	finalHeights.resize(size * size);
 	LoadRAW();
-	genVerticies();
-	genIndicies();
-	terrMesh = new Mesh(vertices, 1024, indicies, 6 * 32 * 32, _device);
+	genVertices();
+	genIndices();
+	terrMesh = new Mesh(vertices, numVerts, indices, numInd, _device);
 }
 
 Terrain::~Terrain()
@@ -19,7 +20,7 @@ Terrain::~Terrain()
 
 void Terrain::LoadRAW()
 {
-	std::vector<unsigned char> heights(size * size);
+	std::vector<unsigned char> heights(xSize * zSize);
 	std::ifstream file;
 	file.open(L"Assets/Terrain/terrain.raw", std::ios_base::binary);
 
@@ -29,53 +30,56 @@ void Terrain::LoadRAW()
 		file.close();
 	}
 
-	for (int i = 0; i < size * size; i++)
+	for (int i = 0; i < heights.size(); i++)
 	{
-		finalHeights[i] = (heights[i] / 255.0f) * heightScale;
+		finalHeights.push_back((heights[i] / 255.0f) * heightScale);
 	}
 }
 
-void Terrain::genVerticies()
+void Terrain::genVertices()
 {
 	int i = 0;
-	for (int x = 0; x < gridSize; x++)
+	for (int x = 0; x < xSize; x++)
 	{
-		for (int z = 0; z < gridSize; z++)
+		for (int z = 0; z < zSize; z++)
 		{
-			vertices[i].Position = DirectX::XMFLOAT3(16 * x, finalHeights[i * 16], 16 * z);
+			vertices[i].Position = DirectX::XMFLOAT3(x - (xSize / 2), finalHeights[i], z - (zSize / 2));
 			i++;
 		}
 	}
+	numVerts = i + 1;
 }
 
-void Terrain::genIndicies()
+void Terrain::genIndices()
 {
 	int ti = 0;
 	int vi = 0;
-	for (int z = 0; z < gridSize; z++)
+	for (int z = 0; z < zSize; z++)
 	{
-		for (int x = 0; x < gridSize; x++)
+		for (int x = 0; x < xSize; x++)
 		{
-			indicies[ti] = vi;
-			indicies[ti + 1] = indicies[ti + 4] = vi + gridSize;
-			indicies[ti + 2] = indicies[ti + 3] = vi + 1;
-			indicies[ti + 5] = vi + gridSize + 1;
-			ti++;
+			indices[ti] = vi;
+			indices[ti + 3] = indices[ti + 2] = vi + 1;
+			indices[ti + 4] = indices[ti + 1] = vi + xSize + 1;
+			indices[ti + 5] = vi + xSize + 2;
+			vi++;
+			ti += 6;
 		}
 		vi++;
 	}
+	numInd = ti + 1;
 }
 
 void Terrain::calculateNormals()
 {
 	DirectX::XMFLOAT3 normal;
 	int i = 0;
-	for (int x = 0; x < gridSize; x++)
+	for (int x = 0; x < xSize; x++)
 	{
-		for (int z = 0; z < gridSize; z++)
+		for (int z = 0; z < zSize; z++)
 		{
-			vertices[i].Normal = normal;
-			i++;
+			//vertices[x][z].Normal = normal;
+			//i++;
 		}
 	}
 }
