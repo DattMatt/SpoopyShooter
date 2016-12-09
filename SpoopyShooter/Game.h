@@ -9,7 +9,7 @@
 #include "Node.h"
 #include "Player.h"
 #include "WICTextureLoader.h"
-#include "Emitter.h"
+#include "SmokeEmitter.h"
 #include "Terrain.h"
 #include <DirectXMath.h>
 
@@ -73,7 +73,7 @@ private:
 	SimplePixelShader* particlePS;
 	ID3D11DepthStencilState* particleDepthState;
 	ID3D11BlendState* particleBlendState;
-	Emitter* emitter;
+	SmokeEmitter* emitter;
 	ID3D11RasterizerState* skyRastState;
 	ID3D11DepthStencilState* skyDepthState;
 

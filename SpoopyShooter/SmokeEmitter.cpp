@@ -27,4 +27,32 @@ SmokeEmitter::~SmokeEmitter()
 {
 }
 
+void SmokeEmitter::Spawn()
+{
+	if (liveParticleCount == maxParticles)
+		return;
+
+	//Reset first dead
+	particles[firstDeadIndex].Age = 0;
+	particles[firstDeadIndex].Size = startSize;
+	particles[firstDeadIndex].Color = startColor;
+	particles[firstDeadIndex].Position = emitterPosition;
+	particles[firstDeadIndex].StartingVel = startVelocity;
+	particles[firstDeadIndex].StartingVel.x += ((float)rand() / RAND_MAX) * 0.4f - 0.2f;
+	particles[firstDeadIndex].StartingVel.y += ((float)rand() / RAND_MAX) * 0.4f - 0.2f;
+	particles[firstDeadIndex].StartingVel.z += ((float)rand() / RAND_MAX) * 0.4f - 0.2f;
+
+	//Increment and wrap
+	firstDeadIndex++;
+	firstDeadIndex %= maxParticles;
+
+	liveParticleCount++;
+}
+
+void SmokeEmitter::RandomizeStartingVelocity()
+{
+	//XMVector3Rotate()
+}
+
+
 

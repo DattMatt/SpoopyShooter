@@ -20,5 +20,7 @@ public:
 		SimplePixelShader* ps,
 		ID3D11ShaderResourceView* texture);
 	~SmokeEmitter();
+	void Spawn() override;
+	void RandomizeStartingVelocity();
 };
 

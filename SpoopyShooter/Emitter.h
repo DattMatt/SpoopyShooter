@@ -53,7 +53,7 @@ public:
 	void CopyOneParticle(int index);
 	void Draw(ID3D11DeviceContext* context, Camera* camera);
 
-private:
+protected:
 
 	DirectX::XMFLOAT3 emitterAccel;
 	DirectX::XMFLOAT3 emitterPosition;
