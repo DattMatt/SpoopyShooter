@@ -51,7 +51,9 @@ void SmokeEmitter::Spawn()
 
 void SmokeEmitter::RandomizeStartingVelocity()
 {
-	//XMVector3Rotate()
+	XMFLOAT3 rotVec = XMFLOAT3(rand() % 2, rand() % 2, 0);
+	XMVECTOR rotQuat = XMVector3Normalize(XMLoadFloat3(&rotVec));
+	XMVector3Rotate(XMLoadFloat3(&startVelocity), rotQuat);
 }
 
 
