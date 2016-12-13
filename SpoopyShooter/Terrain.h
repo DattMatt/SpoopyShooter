@@ -4,6 +4,8 @@
 #include <DirectXMath.h>
 #pragma once
 
+using namespace DirectX;
+
 class Terrain
 {
 	int xSize;
@@ -14,6 +16,7 @@ class Terrain
 	std::vector<float> finalHeights;
 	Vertex vertices[512 * 512];
 	UINT indices[512 * 512 * 6];
+
 	Mesh* terrMesh;
 
 public:
@@ -21,8 +24,9 @@ public:
 	~Terrain();
 	void LoadRAW();
 	void genVertices();
-	void genIndices();
+	void genIndices(int ti, int vi);
 	void calculateNormals();
+	void calculateUV(int i);
 	Mesh* getMesh();
 };
 

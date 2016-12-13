@@ -56,6 +56,7 @@ Game::~Game()
 	delete mat;
 	delete mat2;
 	delete mat3;
+	delete matTerrain;
 	delete triangle;
 	delete square;
 	delete pentagon;
@@ -64,6 +65,7 @@ Game::~Game()
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();
+	terrainView->Release();
 	sampler->Release();
 	partTex->Release();
 	particleBlendState->Release();
@@ -112,11 +114,11 @@ void Game::Init()
 
 	LoadShaders();
 	CreateMatrices();
+	terr = new Terrain(512, 512, 50, device);
 	CreateBasicGeometry();
 	camera = new Camera();	
 	camera->UpdateProjectionMatrix(width, height);	
 	player = new Player(XMFLOAT3(0.0f, 0.0f, -5.0f), camera);
-	terr = new Terrain(512, 512, 50, device);
 	printf("Player Position: (%f, %f, %f)\n", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
 	printf("Camera Position: (%f, %f, %f)\n", player->GetCamera()->GetPosition().x, player->GetCamera()->GetPosition().y, player->GetCamera()->GetPosition().z);
 	prevMousePos.x = 0;
@@ -237,12 +239,14 @@ void Game::LoadShaders()
 	HRESULT texResult = CreateWICTextureFromFile(device, context, L"Assets/Textures/leaves.png", 0, &leavesView);
 	HRESULT texResult2 = CreateWICTextureFromFile(device, context, L"Assets/Textures/brick.jpg", 0, &brickView);
 	HRESULT texResult3 = CreateWICTextureFromFile(device, context, L"Assets/Textures/StoneFence.png", 0, &stoneFence);
+	HRESULT texResult4 = CreateWICTextureFromFile(device, context, L"Assets/Terrain/grass.png", 0, &terrainView);
 	CreateWICTextureFromFile(device, context, L"Assets/Textures/circleParticle.jpg", 0, &partTex);
 	HRESULT sampResult = device->CreateSamplerState(&description, &sampler);
 
 	mat = new Material(vertexShader, pixelShader, leavesView, sampler);
 	mat2 = new Material(vertexShader, pixelShader, brickView, sampler);
 	mat3 = new Material(vertexShader, pixelShader, stoneFence, sampler);
+	matTerrain = new Material(vertexShader, pixelShader, terrainView, sampler);
 
 	// You'll notice that the code above attempts to load each
 	// compiled shader file (.cso) from two different relative paths.
@@ -370,6 +374,7 @@ void Game::CreateBasicGeometry()
 	meshes.push_back(ghost);
 	meshes.push_back(fencePillar);
 
+	entities.push_back(new Entity(terr->getMesh(), matTerrain));
 	entities.push_back(new Entity(cone, mat));
 	entities.push_back(new Entity(cube, mat2));
 	entities.push_back(new Entity(ghost, mat));
@@ -378,10 +383,11 @@ void Game::CreateBasicGeometry()
 
 	targets.push_back(new Target(cube, mat));
 
-	entities[0]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
-	entities[1]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 0.0f));
-	entities[2]->SetPositionVector(XMFLOAT3(0.0f, 1.0f, 4.0f));
-	entities[3]->SetPositionVector(XMFLOAT3(-5.0f, 0.0f, 0.0f));
+	entities[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 0.0f));
+	entities[1]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
+	entities[2]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 0.0f));
+	entities[3]->SetPositionVector(XMFLOAT3(0.0f, 1.0f, 4.0f));
+	entities[4]->SetPositionVector(XMFLOAT3(-5.0f, 0.0f, 0.0f));
 
 	targets[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 2.0f));
 }
@@ -409,7 +415,7 @@ void Game::Update(float deltaTime, float totalTime)
 	if (GetAsyncKeyState('U') & 0x8000)
 		ChangeState();
 
-	entities[1]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
+	entities[2]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
 	
 	player->MoveToward(player->GetCurrent()->GetPosition(), 1.0f, deltaTime);
 	player->UpdateCameraPos();
@@ -496,10 +502,10 @@ void Game::Draw(float deltaTime, float totalTime)
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
 
-	ID3D11Buffer* temp = terr->getMesh()->GetVertexBuffer();
-	context->IASetVertexBuffers(0, 1, &temp, &stride, &offset);
-	context->IASetIndexBuffer(terr->getMesh()->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
-	context->DrawIndexed(terr->getMesh()->GetIndexCount(), 0, 0);
+	//ID3D11Buffer* temp = terr->getMesh()->GetVertexBuffer();
+	//context->IASetVertexBuffers(0, 1, &temp, &stride, &offset);
+	//context->IASetIndexBuffer(terr->getMesh()->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
+	//context->DrawIndexed(terr->getMesh()->GetIndexCount(), 0, 0);
 
 	for (int i = 0; i < entities.size(); i++)
 	{		
