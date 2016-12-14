@@ -121,7 +121,7 @@ void Game::Init()
 	debug = new Camera();
 	camera->UpdateProjectionMatrix(width, height);	
 	debug->UpdateProjectionMatrix(width, height);
-	player = new Player(XMFLOAT3(0.0f, 0.0f, -5.0f), camera);
+	player = new Player(XMFLOAT3(0.0f, 0.0f, 0.0f), camera);
 	debug->SetPosition(XMFLOAT3(0.0f, 5.0f, 0.0f));
 	terr = new Terrain(512, 512, 50, device);	
 	prevMousePos.x = 0;
@@ -169,23 +169,35 @@ void Game::Init()
 		500,
 		10,
 		5,
-		6.0f,
-		0.5f,
-		XMFLOAT4(1, 0.1f, 0.1f, 0.08f),
-		XMFLOAT4(1, 0.6f, 0.1f, 0),
-		XMFLOAT3(-2, 2, 0),
-		XMFLOAT3(8, 4, 0),
-		XMFLOAT3(0, -1, 0),
+		3.0f,
+		1.0f,
+		XMFLOAT4(0.8f, 0.1f, 0.8f, 0.3f),
+		XMFLOAT4(0.2f, 0.0f, 0.2f, 0.02f),
+		XMFLOAT3(-1, 0, 1),
+		XMFLOAT3(8, 1, 0),
+		XMFLOAT3(0, 0, 0),
 		device,
 		particleVS,
 		particlePS,
 		partTex);
 
-	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 0.0f)));
-	nodes.push_back(new Node(XMFLOAT3(0.0f, 0.0f, 2.0f)));
-	nodes.push_back(new Node(XMFLOAT3(1.0f, 0.0f, 3.0f)));
-	nodes.push_back(new Node(XMFLOAT3(1.0f, 0.0f, 5.0f)));
-	nodes.push_back(new Node(XMFLOAT3(3.0f, 0.0f, 2.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 0.0f, 0.0f,  0.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 4.0f, 0.0f,  2.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 8.0f, 0.0f,  4.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 8.0f, 0.0f,  6.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 8.0f, 0.0f,  8.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 6.0f, 0.0f, 10.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 4.0f, 0.0f, 14.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 0.0f, 0.0f, 14.0f)));
+	nodes.push_back(new Node(XMFLOAT3(-4.0f, 0.0f, 14.0f)));
+	nodes.push_back(new Node(XMFLOAT3(-6.0f, 0.0f, 16.0f)));
+	nodes.push_back(new Node(XMFLOAT3(-6.0f, 0.0f, 18.0f)));
+	nodes.push_back(new Node(XMFLOAT3(-4.0f, 0.0f, 20.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 0.0f, 0.0f, 20.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 4.0f, 0.0f, 20.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 6.0f, 0.0f, 18.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 7.0f, 0.0f, 17.0f)));
+	nodes.push_back(new Node(XMFLOAT3( 8.0f, 0.0f, 16.0f)));
 
 	player->SetCurrent(nodes[0]);
 
@@ -209,10 +221,10 @@ void Game::Init()
 	{
 		if (i != nodes.size() - 1)
 			nodes[i]->SetNext(nodes[i + 1]);
-		else
-			nodes[i]->SetNext(nodes[0]);
+		//else
+		//	nodes[i]->SetNext(nodes[0]);
 
-		printf("Location of next node: (%f, %f, %f)\n", nodes[i]->GetNext()->GetPosition().x, nodes[i]->GetNext()->GetPosition().y, nodes[i]->GetNext()->GetPosition().z);
+		//printf("Location of next node: (%f, %f, %f)\n", nodes[i]->GetNext()->GetPosition().x, nodes[i]->GetNext()->GetPosition().y, nodes[i]->GetNext()->GetPosition().z);
 	}
 
 	// Tell the input assembler stage of the pipeline what kind of
@@ -457,7 +469,10 @@ void Game::Update(float deltaTime, float totalTime)
 	
 	if (length.x <= player->GetCurrent()->GetRadius())
 	{
-		player->SetCurrent(player->GetCurrent()->GetNext());
+		if (player->GetCurrent()->GetNext() != NULL)
+		{
+			player->SetCurrent(player->GetCurrent()->GetNext());
+		}
 	}
 
 	for (int i = 0; i < entities.size(); i++)

@@ -22,5 +22,6 @@ public:
 	~SmokeEmitter();	
 	void Spawn() override;
 	void RandomizeStartingVelocity();
+	void RandomizeEmitterAcceleration();
 };
 
