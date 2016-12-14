@@ -450,7 +450,6 @@ void Game::Update(float deltaTime, float totalTime)
 	
 	if (length.x <= player->GetCurrent()->GetRadius())
 	{
-		player->SetCurrent(player->GetCurrent()->GetNext());
 		if (player->GetCurrent()->GetNext() != NULL)
 		{
 			player->SetCurrent(player->GetCurrent()->GetNext());
