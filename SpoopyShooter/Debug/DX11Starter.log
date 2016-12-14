@@ -1,0 +1,20 @@
+﻿  Terrain.cpp
+c:\users\colton\documents\spoopyshooter\spoopyshooter\terrain.cpp(29): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+c:\users\colton\documents\spoopyshooter\spoopyshooter\terrain.cpp(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Main.cpp
+  Game.cpp
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(76): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(81): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(86): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(91): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(150): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(155): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(188): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(430): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(509): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(520): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(618): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(652): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  Generating Code...
+  DX11Starter.vcxproj -> C:\Users\Colton\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
+  DX11Starter.vcxproj -> C:\Users\Colton\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)
