@@ -79,6 +79,7 @@ private:
 	SmokeEmitter* emitter;
 	ID3D11RasterizerState* skyRastState;
 	ID3D11DepthStencilState* skyDepthState;
+	ID3D11BlendState* alphaBlendState;
 
 	// Initialization helper methods - feel free to customize, combine, etc.
 	void LoadShaders(); 
