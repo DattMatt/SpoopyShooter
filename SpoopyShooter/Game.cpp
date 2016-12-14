@@ -73,6 +73,7 @@ Game::~Game()
 	skySRV->Release();
 	skyDepthState->Release();
 	skyRastState->Release();
+	//alphaBlendState->Release();
 
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -187,6 +188,22 @@ void Game::Init()
 	nodes.push_back(new Node(XMFLOAT3(3.0f, 0.0f, 2.0f)));
 
 	player->SetCurrent(nodes[0]);
+
+	//Alpha blending
+	//description
+	D3D11_BLEND_DESC blendDesc = {};
+	blendDesc.AlphaToCoverageEnable = false;
+	blendDesc.IndependentBlendEnable = false;
+	blendDesc.RenderTarget[0].BlendEnable = true;
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	device->CreateBlendState(&blendDesc, &alphaBlendState);
 
 	for (int i = 0; i < nodes.size(); i++)
 	{
@@ -379,11 +396,13 @@ void Game::CreateBasicGeometry()
 	entities.push_back(new Entity(terr->getMesh(), matTerrain));
 	entities.push_back(new Entity(cone, mat));
 	entities.push_back(new Entity(cube, mat2));
-	entities.push_back(new Entity(ghost, mat));
+	//entities.push_back(new Entity(ghost, mat));
+	entities.push_back(new Entity(cube, mat));
 	entities.push_back(new Entity(fencePillar, mat3));
 	entities.push_back(new Entity(square, mat));
 
-	targets.push_back(new Target(cube, mat));
+	//targets.push_back(new Target(cube, mat));
+	targets.push_back(new Target(ghost, mat));
 
 	entities[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
@@ -538,6 +557,14 @@ void Game::Draw(float deltaTime, float totalTime)
 			0,
 			0);
 	}
+
+	//Alpha Blending
+	float factors[4] = {0.5,0.5,0.5,0.5};
+	context->OMSetBlendState(
+		alphaBlendState,
+		factors,
+		0xFFFFFFFF);
+
 	for (int i = 0; i < targets.size(); i++)
 	{
 		if(!isDebug)

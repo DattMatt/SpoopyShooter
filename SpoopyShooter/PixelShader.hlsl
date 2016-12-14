@@ -85,6 +85,7 @@ float4 main(VertexToPixel input) : SV_TARGET
 	float4 directionalLight2 = float4(CalculateDirLight(input.normal, dirLight2), 1);
 
 	float4 pointLight = float4(CalculatePointLight(input.normal, input.worldPos, pLight), 1);
-	
-	return (directionalLight + directionalLight2 + pointLight) * surfaceColor;
+	float3 finalColor = (directionalLight + directionalLight2 + pointLight) * surfaceColor;
+
+	return float4(finalColor, surfaceColor.a);
 }
