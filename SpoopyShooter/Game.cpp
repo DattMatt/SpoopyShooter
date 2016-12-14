@@ -168,13 +168,13 @@ void Game::Init()
 	};
 
 	emitter = new SmokeEmitter(
-		500,
-		10,
+		800,
+		20,
 		5,
 		3.0f,
 		1.0f,
-		XMFLOAT4(0.8f, 0.1f, 0.8f, 0.3f),
-		XMFLOAT4(0.2f, 0.0f, 0.2f, 0.02f),
+		XMFLOAT4(0.1f, 0.1f, 0.1f, 0.6f),
+		XMFLOAT4(0.1f, 0.1f, 0.1f, 0.1f),
 		XMFLOAT3(-1, 0, 1),
 		XMFLOAT3(8, 1, 0),
 		XMFLOAT3(0, 0, 0),
@@ -233,6 +233,9 @@ void Game::Init()
 	// geometric primitives (points, lines or triangles) we want to draw.  
 	// Essentially: "What kind of shape should the GPU draw with our data?"
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// Hide Cursor
+	ShowCursor(false);
 
 	state = start;
 	uDown = false;
@@ -418,7 +421,7 @@ void Game::CreateBasicGeometry()
 	entities.push_back(new Entity(square, mat));
 
 	//targets.push_back(new Target(cube, mat));
-	targets.push_back(new Target(ghost, mat3));
+	targets.push_back(new Target(ghost, mat));	
 
 	entities[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
@@ -449,6 +452,10 @@ void Game::OnResize()
 void Game::Update(float deltaTime, float totalTime)
 {
 	// Quit if the escape key is pressed
+	if (targets[0]->GetVisible())
+	{
+		printf("Ghost is visible");
+	}
 	if (GetAsyncKeyState(VK_ESCAPE))
 		Quit();		
 	if (GetAsyncKeyState('U') & 0x8000)
@@ -484,10 +491,24 @@ void Game::Update(float deltaTime, float totalTime)
 		entities[i]->ReconstructWorldMatrix();
 	}
 
+	// re-setting cursor position after x amount of updates
+	if (!mouseReturn && mouseCounter == 10) {
+		mouseReturn = true;
+		mouseCounter = 0;
+	}
+	if (mouseReturn && mouseCounter == 2) {
+		mouseReturn = false;
+		mouseCounter = 0;
+	}
+	if (mouseReturn) {
+		SetCursorPos(1920 / 2, 1017 / 2);
+	}
+
 	emitter->Update(deltaTime);
 
 	camera->Update(deltaTime);
 	debug->Update(deltaTime);
+	mouseCounter++;
 }
 
 void Game::ChangeState()
@@ -586,17 +607,20 @@ void Game::Draw(float deltaTime, float totalTime)
 
 	for (int i = 0; i < targets.size(); i++)
 	{
-		if(!isDebug)
-			targets[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());
-		else
-			targets[i]->PrepareMaterial(debug->GetViewMatrix(), debug->GetProjectionMatrix());
-		ID3D11Buffer* temp = targets[i]->GetMesh()->GetVertexBuffer();
-		context->IASetVertexBuffers(0, 1, &temp, &stride, &offset);
-		context->IASetIndexBuffer(targets[i]->GetMesh()->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
-		context->DrawIndexed(
-			targets[i]->GetMesh()->GetIndexCount(),
-			0,
-			0);
+		if (targets[i]->GetVisible())
+		{
+			if (!isDebug)
+				targets[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());
+			else
+				targets[i]->PrepareMaterial(debug->GetViewMatrix(), debug->GetProjectionMatrix());
+			ID3D11Buffer* temp = targets[i]->GetMesh()->GetVertexBuffer();
+			context->IASetVertexBuffers(0, 1, &temp, &stride, &offset);
+			context->IASetIndexBuffer(targets[i]->GetMesh()->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
+			context->DrawIndexed(
+				targets[i]->GetMesh()->GetIndexCount(),
+				0,
+				0);
+		}
 	}
 
 	
@@ -732,14 +756,16 @@ void Game::OnMouseUp(WPARAM buttonState, int x, int y)
 // --------------------------------------------------------
 void Game::OnMouseMove(WPARAM buttonState, int x, int y)
 {
-	// Add any custom code here...	
-	if (isDown && !isDebug) {
-		camera->Rotate(x - prevMousePos.x, y - prevMousePos.y);
+	if (!mouseReturn) {
+		//if (isDown && !isDebug) {
+		if (!isDebug) {
+			camera->Rotate(x - prevMousePos.x, y - prevMousePos.y);
+		}
+		//else if (isDown && isDebug) {
+		else if (isDebug) {
+			debug->Rotate(x - prevMousePos.x, y - prevMousePos.y);
+		}
 	}
-	else if (isDown && isDebug) {
-		debug->Rotate(x - prevMousePos.x, y - prevMousePos.y);
-	}
-
 	// Save the previous mouse position, so we have it for the future
 	prevMousePos.x = x;
 	prevMousePos.y = y;

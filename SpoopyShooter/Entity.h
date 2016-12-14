@@ -17,6 +17,7 @@ private:
 	XMFLOAT3 scaleVector;
 	Mesh* mesh;
 	Material* mat;
+	bool visible = true;
 
 public:
 	Entity();
@@ -27,6 +28,8 @@ public:
 	XMFLOAT3 GetPositionVector();
 	XMFLOAT3 GetRotationVector();
 	XMFLOAT3 GetScaleVector();
+	bool GetVisible();
+	void SetVisible(bool v);
 
 	Mesh* GetMesh();
 
@@ -41,6 +44,6 @@ public:
 
 	void Move(XMFLOAT3 mVector, float dt);
 
-	void PrepareMaterial(XMFLOAT4X4 _viewMatrix, XMFLOAT4X4 _projectionMatrix);
+	void PrepareMaterial(XMFLOAT4X4 _viewMatrix, XMFLOAT4X4 _projectionMatrix);	
 };
 
