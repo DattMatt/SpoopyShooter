@@ -233,7 +233,7 @@ void Game::Init()
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Hide Cursor
-	//ShowCursor(false);
+	ShowCursor(false);
 
 	state = start;
 	uDown = false;
@@ -417,7 +417,7 @@ void Game::CreateBasicGeometry()
 	entities.push_back(new Entity(square, mat));
 
 	//targets.push_back(new Target(cube, mat));
-	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat));	
 
 	entities[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
@@ -448,6 +448,10 @@ void Game::OnResize()
 void Game::Update(float deltaTime, float totalTime)
 {
 	// Quit if the escape key is pressed
+	if (targets[0]->GetVisible())
+	{
+		printf("Ghost is visible");
+	}
 	if (GetAsyncKeyState(VK_ESCAPE))
 		Quit();		
 	if (GetAsyncKeyState('U') & 0x8000)
@@ -599,7 +603,7 @@ void Game::Draw(float deltaTime, float totalTime)
 
 	for (int i = 0; i < targets.size(); i++)
 	{
-		if (!targets[i]->GetVisible())
+		if (targets[i]->GetVisible())
 		{
 			if (!isDebug)
 				targets[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());

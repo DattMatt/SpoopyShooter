@@ -1,7 +1,10 @@
-﻿  Camera.cpp
+﻿  Game.cpp
 d:\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
 d:\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-d:\spoopyshooter\spoopyshooter\camera.cpp(96): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-d:\spoopyshooter\spoopyshooter\camera.cpp(97): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\spoopyshooter\spoopyshooter\game.cpp(154): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\spoopyshooter\spoopyshooter\game.cpp(159): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\spoopyshooter\spoopyshooter\game.cpp(723): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\spoopyshooter\spoopyshooter\game.cpp(758): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+d:\spoopyshooter\spoopyshooter\game.cpp(762): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
   DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> D:\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.pdb (Full PDB)
