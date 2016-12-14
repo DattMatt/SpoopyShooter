@@ -58,6 +58,7 @@ private:
 	std::vector<Node*> nodes;
 
 	Camera* camera;
+	Camera* debug;
 	Player* player;
 
 	Terrain* terr;
@@ -109,5 +110,6 @@ private:
 	POINT prevMousePos;
 	bool isDown;
 	bool uDown;
+	bool isDebug = false;
 };
 

@@ -38,6 +38,7 @@ void SmokeEmitter::Spawn()
 	particles[firstDeadIndex].Color = startColor;
 	particles[firstDeadIndex].Position = emitterPosition;
 	particles[firstDeadIndex].StartingVel = startVelocity;
+	RandomizeStartingVelocity();
 	particles[firstDeadIndex].StartingVel.x += ((float)rand() / RAND_MAX) * 0.4f - 0.2f;
 	particles[firstDeadIndex].StartingVel.y += ((float)rand() / RAND_MAX) * 0.4f - 0.2f;
 	particles[firstDeadIndex].StartingVel.z += ((float)rand() / RAND_MAX) * 0.4f - 0.2f;
@@ -53,7 +54,7 @@ void SmokeEmitter::RandomizeStartingVelocity()
 {
 	XMFLOAT3 rotVec = XMFLOAT3(rand() % 2, rand() % 2, 0);
 	XMVECTOR rotQuat = XMVector3Normalize(XMLoadFloat3(&rotVec));
-	XMVector3Rotate(XMLoadFloat3(&startVelocity), rotQuat);
+	XMStoreFloat3(&startVelocity, XMVector3Rotate(XMLoadFloat3(&startVelocity), rotQuat));
 }
 
 
