@@ -436,10 +436,10 @@ void Game::Update(float deltaTime, float totalTime)
 	XMFLOAT3 length;
 	XMStoreFloat3(&length, XMVector3Length(XMLoadFloat3(&player->GetCurrent()->GetPosition()) - XMLoadFloat3(&player->GetPosition())));
 	
-	//if (length.x <= player->GetCurrent()->GetRadius())
-	//{
-	//	player->SetCurrent(player->GetCurrent()->GetNext());
-	//}
+	if (length.x <= player->GetCurrent()->GetRadius())
+	{
+		player->SetCurrent(player->GetCurrent()->GetNext());
+	}
 
 	for (int i = 0; i < entities.size(); i++)
 	{
