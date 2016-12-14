@@ -416,16 +416,16 @@ void Game::Update(float deltaTime, float totalTime)
 
 	entities[2]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
 	
-	player->MoveToward(player->GetCurrent()->GetPosition(), 1.0f, deltaTime);
-	player->UpdateCameraPos();
+	//player->MoveToward(player->GetCurrent()->GetPosition(), 1.0f, deltaTime);
+	//player->UpdateCameraPos();
 	
 	XMFLOAT3 length;
 	XMStoreFloat3(&length, XMVector3Length(XMLoadFloat3(&player->GetCurrent()->GetPosition()) - XMLoadFloat3(&player->GetPosition())));
 	
-	if (length.x <= player->GetCurrent()->GetRadius())
-	{
-		player->SetCurrent(player->GetCurrent()->GetNext());
-	}
+	//if (length.x <= player->GetCurrent()->GetRadius())
+	//{
+	//	player->SetCurrent(player->GetCurrent()->GetNext());
+	//}
 
 	for (int i = 0; i < entities.size(); i++)
 	{

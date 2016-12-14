@@ -46,12 +46,12 @@ void Camera::SetRotationX(float _xRot) { xRot = _xRot; }
 void Camera::SetRotationY(float _yRot) { yRot = _yRot; }
 
 void Camera::Update(float dt) {
-	if (GetAsyncKeyState('W') & 0x8000) { MoveFB(2.0f, dt); }			//Move Forward
-	if (GetAsyncKeyState('S') & 0x8000) { MoveFB(-2.0f, dt); }			//Move Backward
-	if (GetAsyncKeyState('A') & 0x8000) { StrafeLR(-2.0f, dt); }		//Move Left
-	if (GetAsyncKeyState('D') & 0x8000) { StrafeLR(2.0f, dt); }			//Move Right
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000) { MoveUD(2.0f, dt); }		//Move Up
-	if (GetAsyncKeyState('X') & 0x8000) { MoveUD(-2.0f, dt); }			//Move Down
+	if (GetAsyncKeyState('W') & 0x8000) { MoveFB(20.0f, dt); }			//Move Forward
+	if (GetAsyncKeyState('S') & 0x8000) { MoveFB(-20.0f, dt); }			//Move Backward
+	if (GetAsyncKeyState('A') & 0x8000) { StrafeLR(-20.0f, dt); }		//Move Left
+	if (GetAsyncKeyState('D') & 0x8000) { StrafeLR(20.0f, dt); }			//Move Right
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000) { MoveUD(20.0f, dt); }		//Move Up
+	if (GetAsyncKeyState('X') & 0x8000) { MoveUD(-20.0f, dt); }			//Move Down
 
 	XMVECTOR rotation = XMQuaternionRotationRollPitchYaw(yRot, xRot, 0.0f);
 	XMVECTOR fVector = XMVector3Rotate(XMLoadFloat3(&unitZ), rotation);
