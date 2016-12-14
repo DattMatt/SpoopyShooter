@@ -40,7 +40,7 @@ void SmokeEmitter::Spawn()
 	particles[firstDeadIndex].StartingVel = startVelocity;
 	RandomizeStartingVelocity();
 	particles[firstDeadIndex].StartingVel.x += ((float)rand() / RAND_MAX) * 0.4f - 0.2f;
-	particles[firstDeadIndex].StartingVel.y += ((float)rand() / RAND_MAX) * 0.4f - 0.2f;
+	//particles[firstDeadIndex].StartingVel.y += ((float)rand() / RAND_MAX) * 0.4f - 0.2f;
 	particles[firstDeadIndex].StartingVel.z += ((float)rand() / RAND_MAX) * 0.4f - 0.2f;
 
 	//Increment and wrap
@@ -52,9 +52,18 @@ void SmokeEmitter::Spawn()
 
 void SmokeEmitter::RandomizeStartingVelocity()
 {
+	printf("Start Velocity x : %f \n y: %f \n z: %f \n", startVelocity.x, startVelocity.y, startVelocity.z);
+	XMFLOAT3 rotVec = XMFLOAT3(0, rand() % 361, 0);
+	XMVECTOR rotQuat = XMQuaternionRotationRollPitchYawFromVector(XMLoadFloat3(&rotVec));
+	XMStoreFloat3(&startVelocity, XMVector3Rotate(XMLoadFloat3(&startVelocity), rotQuat));
+	printf("Start Velocity x : %f \n y: %f \n z: %f \n", startVelocity.x, startVelocity.y, startVelocity.z);
+}
+
+void SmokeEmitter::RandomizeEmitterAcceleration()
+{
 	XMFLOAT3 rotVec = XMFLOAT3(rand() % 2, rand() % 2, 0);
 	XMVECTOR rotQuat = XMVector3Normalize(XMLoadFloat3(&rotVec));
-	XMStoreFloat3(&startVelocity, XMVector3Rotate(XMLoadFloat3(&startVelocity), rotQuat));
+	XMStoreFloat3(&emitterAccel, XMVector3Rotate(XMLoadFloat3(&emitterAccel), rotQuat));
 }
 
 

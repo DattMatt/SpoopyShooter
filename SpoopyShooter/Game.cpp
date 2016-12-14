@@ -168,13 +168,13 @@ void Game::Init()
 		500,
 		10,
 		5,
-		6.0f,
-		0.5f,
-		XMFLOAT4(1, 0.1f, 0.1f, 0.08f),
-		XMFLOAT4(1, 0.6f, 0.1f, 0),
-		XMFLOAT3(-2, 2, 0),
-		XMFLOAT3(8, 4, 0),
-		XMFLOAT3(0, -1, 0),
+		3.0f,
+		1.0f,
+		XMFLOAT4(0.8f, 0.1f, 0.8f, 0.3f),
+		XMFLOAT4(0.2f, 0.0f, 0.2f, 0.02f),
+		XMFLOAT3(-1, 0, 1),
+		XMFLOAT3(8, 1, 0),
+		XMFLOAT3(0, 0, 0),
 		device,
 		particleVS,
 		particlePS,
@@ -436,10 +436,10 @@ void Game::Update(float deltaTime, float totalTime)
 	XMFLOAT3 length;
 	XMStoreFloat3(&length, XMVector3Length(XMLoadFloat3(&player->GetCurrent()->GetPosition()) - XMLoadFloat3(&player->GetPosition())));
 	
-	//if (length.x <= player->GetCurrent()->GetRadius())
-	//{
-	//	player->SetCurrent(player->GetCurrent()->GetNext());
-	//}
+	if (length.x <= player->GetCurrent()->GetRadius())
+	{
+		player->SetCurrent(player->GetCurrent()->GetNext());
+	}
 
 	for (int i = 0; i < entities.size(); i++)
 	{
