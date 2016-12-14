@@ -79,6 +79,7 @@ private:
 	SmokeEmitter* emitter;
 	ID3D11RasterizerState* skyRastState;
 	ID3D11DepthStencilState* skyDepthState;
+	ID3D11BlendState* alphaBlendState;
 
 	// Initialization helper methods - feel free to customize, combine, etc.
 	void LoadShaders(); 
@@ -104,6 +105,9 @@ private:
 	DirectX::XMFLOAT4X4 worldMatrix;
 	DirectX::XMFLOAT4X4 viewMatrix;
 	DirectX::XMFLOAT4X4 projectionMatrix;
+
+	bool mouseReturn = false;
+	int mouseCounter;
 
 	// Keeps track of the old mouse position.  Useful for 
 	// determining how far the mouse moved in a single frame.

@@ -73,6 +73,7 @@ Game::~Game()
 	skySRV->Release();
 	skyDepthState->Release();
 	skyRastState->Release();
+	//alphaBlendState->Release();
 
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -200,6 +201,22 @@ void Game::Init()
 
 	player->SetCurrent(nodes[0]);
 
+	//Alpha blending
+	//description
+	D3D11_BLEND_DESC blendDesc = {};
+	blendDesc.AlphaToCoverageEnable = false;
+	blendDesc.IndependentBlendEnable = false;
+	blendDesc.RenderTarget[0].BlendEnable = true;
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	device->CreateBlendState(&blendDesc, &alphaBlendState);
+
 	for (int i = 0; i < nodes.size(); i++)
 	{
 		if (i != nodes.size() - 1)
@@ -214,6 +231,9 @@ void Game::Init()
 	// geometric primitives (points, lines or triangles) we want to draw.  
 	// Essentially: "What kind of shape should the GPU draw with our data?"
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// Hide Cursor
+	//ShowCursor(false);
 
 	state = start;
 	uDown = false;
@@ -391,11 +411,13 @@ void Game::CreateBasicGeometry()
 	entities.push_back(new Entity(terr->getMesh(), matTerrain));
 	entities.push_back(new Entity(cone, mat));
 	entities.push_back(new Entity(cube, mat2));
-	entities.push_back(new Entity(ghost, mat));
+	//entities.push_back(new Entity(ghost, mat));
+	entities.push_back(new Entity(cube, mat));
 	entities.push_back(new Entity(fencePillar, mat3));
 	entities.push_back(new Entity(square, mat));
 
-	targets.push_back(new Target(cube, mat));
+	//targets.push_back(new Target(cube, mat));
+	targets.push_back(new Target(ghost, mat));
 
 	entities[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
@@ -461,10 +483,24 @@ void Game::Update(float deltaTime, float totalTime)
 		entities[i]->ReconstructWorldMatrix();
 	}
 
+	// re-setting cursor position after x amount of updates
+	if (!mouseReturn && mouseCounter == 10) {
+		mouseReturn = true;
+		mouseCounter = 0;
+	}
+	if (mouseReturn && mouseCounter == 2) {
+		mouseReturn = false;
+		mouseCounter = 0;
+	}
+	if (mouseReturn) {
+		SetCursorPos(1920 / 2, 1017 / 2);
+	}
+
 	emitter->Update(deltaTime);
 
 	camera->Update(deltaTime);
 	debug->Update(deltaTime);
+	mouseCounter++;
 }
 
 void Game::ChangeState()
@@ -553,6 +589,14 @@ void Game::Draw(float deltaTime, float totalTime)
 			0,
 			0);
 	}
+
+	//Alpha Blending
+	float factors[4] = {0.5,0.5,0.5,0.5};
+	context->OMSetBlendState(
+		alphaBlendState,
+		factors,
+		0xFFFFFFFF);
+
 	for (int i = 0; i < targets.size(); i++)
 	{
 		if (!targets[i]->GetVisible())
@@ -704,14 +748,16 @@ void Game::OnMouseUp(WPARAM buttonState, int x, int y)
 // --------------------------------------------------------
 void Game::OnMouseMove(WPARAM buttonState, int x, int y)
 {
-	// Add any custom code here...	
-	if (isDown && !isDebug) {
-		camera->Rotate(x - prevMousePos.x, y - prevMousePos.y);
+	if (!mouseReturn) {
+		//if (isDown && !isDebug) {
+		if (!isDebug) {
+			camera->Rotate(x - prevMousePos.x, y - prevMousePos.y);
+		}
+		//else if (isDown && isDebug) {
+		else if (isDebug) {
+			debug->Rotate(x - prevMousePos.x, y - prevMousePos.y);
+		}
 	}
-	else if (isDown && isDebug) {
-		debug->Rotate(x - prevMousePos.x, y - prevMousePos.y);
-	}
-
 	// Save the previous mouse position, so we have it for the future
 	prevMousePos.x = x;
 	prevMousePos.y = y;
