@@ -14,6 +14,7 @@ class Terrain
 	int numVerts;
 	int numInd;
 	std::vector<float> finalHeights;
+	std::vector<XMFLOAT3> faceNorms;
 	Vertex vertices[512 * 512];
 	UINT indices[512 * 512 * 6];
 	unsigned char heights[512 * 512];
@@ -25,7 +26,7 @@ public:
 	void LoadRAW();
 	void genVertices();
 	void genIndices(int ti, int vi);
-	void calculateNormals();
+	void calculateFaceNormals();
 	void calculateUV(int i);
 	Mesh* getMesh();
 };
