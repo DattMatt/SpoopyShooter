@@ -1,2 +1,6 @@
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v140:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=8.1
+<<<<<<< HEAD
 Debug|x64|\\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\|
+=======
+Debug|x64|D:\SpoopyShooter\SpoopyShooter\|
+>>>>>>> 7a73f19f1cc01c222b6b5d7d44781cfe13f857ce
