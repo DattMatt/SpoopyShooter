@@ -160,11 +160,11 @@ void Camera::Raycast(float mouseX, float mouseY, std::vector<Target*>& targets)
 		printf("%f \n", distFromObjToProj);
 		printf("%f \n", targets[i]->GetRadius());
 
-		if (distFromObjToProj <= targets[i]->GetRadius())
+		if (distFromObjToProj <= targets[i]->GetRadius() && targets[i]->GetVisible())
 		{
-			printf("Hit \n");
+			printf("HIT");
+			targets[i]->SetVisible(false);
 		}
-
 	}
 }
 

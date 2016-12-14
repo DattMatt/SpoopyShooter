@@ -52,11 +52,9 @@ void SmokeEmitter::Spawn()
 
 void SmokeEmitter::RandomizeStartingVelocity()
 {
-	printf("Start Velocity x : %f \n y: %f \n z: %f \n", startVelocity.x, startVelocity.y, startVelocity.z);
 	XMFLOAT3 rotVec = XMFLOAT3(0, rand() % 361, 0);
 	XMVECTOR rotQuat = XMQuaternionRotationRollPitchYawFromVector(XMLoadFloat3(&rotVec));
 	XMStoreFloat3(&startVelocity, XMVector3Rotate(XMLoadFloat3(&startVelocity), rotQuat));
-	printf("Start Velocity x : %f \n y: %f \n z: %f \n", startVelocity.x, startVelocity.y, startVelocity.z);
 }
 
 void SmokeEmitter::RandomizeEmitterAcceleration()

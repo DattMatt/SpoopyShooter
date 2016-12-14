@@ -26,11 +26,13 @@ XMFLOAT3 Entity::GetPositionVector() { return positionVector; }
 XMFLOAT3 Entity::GetRotationVector() { return rotationVector; }
 XMFLOAT3 Entity::GetScaleVector() { return scaleVector; }
 Mesh* Entity::GetMesh() { return mesh; }
+bool Entity::GetVisible() { return visible; }
 
 void Entity::SetWorldMatrix(XMFLOAT4X4 _worldMatrix) { worldMatrix = _worldMatrix; }
 void Entity::SetPositionVector(XMFLOAT3 _pVector){ 	positionVector = _pVector; }
 void Entity::SetRotationVector(XMFLOAT3 _rVector) { rotationVector = _rVector; }
 void Entity::SetScaleVector(XMFLOAT3 _sVector) { scaleVector = _sVector; }
+void Entity::SetVisible(bool v) { visible = v; }
 
 void Entity::ScaleUniform(float s)
 {

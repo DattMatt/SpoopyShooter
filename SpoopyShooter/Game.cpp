@@ -165,13 +165,13 @@ void Game::Init()
 	};
 
 	emitter = new SmokeEmitter(
-		500,
-		10,
+		800,
+		20,
 		5,
 		3.0f,
 		1.0f,
-		XMFLOAT4(0.8f, 0.1f, 0.8f, 0.3f),
-		XMFLOAT4(0.2f, 0.0f, 0.2f, 0.02f),
+		XMFLOAT4(0.1f, 0.1f, 0.1f, 0.6f),
+		XMFLOAT4(0.1f, 0.1f, 0.1f, 0.1f),
 		XMFLOAT3(-1, 0, 1),
 		XMFLOAT3(8, 1, 0),
 		XMFLOAT3(0, 0, 0),
@@ -555,17 +555,20 @@ void Game::Draw(float deltaTime, float totalTime)
 	}
 	for (int i = 0; i < targets.size(); i++)
 	{
-		if(!isDebug)
-			targets[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());
-		else
-			targets[i]->PrepareMaterial(debug->GetViewMatrix(), debug->GetProjectionMatrix());
-		ID3D11Buffer* temp = targets[i]->GetMesh()->GetVertexBuffer();
-		context->IASetVertexBuffers(0, 1, &temp, &stride, &offset);
-		context->IASetIndexBuffer(targets[i]->GetMesh()->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
-		context->DrawIndexed(
-			targets[i]->GetMesh()->GetIndexCount(),
-			0,
-			0);
+		if (!targets[i]->GetVisible())
+		{
+			if (!isDebug)
+				targets[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());
+			else
+				targets[i]->PrepareMaterial(debug->GetViewMatrix(), debug->GetProjectionMatrix());
+			ID3D11Buffer* temp = targets[i]->GetMesh()->GetVertexBuffer();
+			context->IASetVertexBuffers(0, 1, &temp, &stride, &offset);
+			context->IASetIndexBuffer(targets[i]->GetMesh()->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
+			context->DrawIndexed(
+				targets[i]->GetMesh()->GetIndexCount(),
+				0,
+				0);
+		}
 	}
 
 	
