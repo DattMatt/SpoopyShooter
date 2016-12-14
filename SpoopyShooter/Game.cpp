@@ -61,7 +61,8 @@ Game::~Game()
 	delete triangle;
 	delete square;
 	delete pentagon;
-	delete emitter;		
+	delete emitter;	
+	delete matGhost;
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();
@@ -73,7 +74,8 @@ Game::~Game()
 	skySRV->Release();
 	skyDepthState->Release();
 	skyRastState->Release();
-	//alphaBlendState->Release();
+	alphaBlendState->Release();
+	ghostRes->Release();
 
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -271,6 +273,7 @@ void Game::LoadShaders()
 	HRESULT texResult2 = CreateWICTextureFromFile(device, context, L"Assets/Textures/brick.jpg", 0, &brickView);
 	HRESULT texResult3 = CreateWICTextureFromFile(device, context, L"Assets/Textures/StoneFence.png", 0, &stoneFence);
 	HRESULT texResult4 = CreateWICTextureFromFile(device, context, L"Assets/Terrain/grass.png", 0, &terrainView);
+	HRESULT ghosttext = CreateWICTextureFromFile(device, context, L"Assets/Terrain/ghost.png", 0, &ghostRes);
 	CreateWICTextureFromFile(device, context, L"Assets/Textures/circleParticle.jpg", 0, &partTex);
 	HRESULT sampResult = device->CreateSamplerState(&description, &sampler);
 
@@ -278,6 +281,7 @@ void Game::LoadShaders()
 	mat2 = new Material(vertexShader, pixelShader, brickView, sampler);
 	mat3 = new Material(vertexShader, pixelShader, stoneFence, sampler);
 	matTerrain = new Material(vertexShader, pixelShader, terrainView, sampler);
+	matGhost = new Material(vertexShader, pixelShader,ghostRes, sampler);
 
 	// You'll notice that the code above attempts to load each
 	// compiled shader file (.cso) from two different relative paths.
@@ -414,7 +418,7 @@ void Game::CreateBasicGeometry()
 	entities.push_back(new Entity(square, mat));
 
 	//targets.push_back(new Target(cube, mat));
-	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat3));
 
 	entities[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	entities[1]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
@@ -574,7 +578,7 @@ void Game::Draw(float deltaTime, float totalTime)
 	}
 
 	//Alpha Blending
-	float factors[4] = {0.5,0.5,0.5,0.5};
+	float factors[4] = {1,1,1,1};
 	context->OMSetBlendState(
 		alphaBlendState,
 		factors,
