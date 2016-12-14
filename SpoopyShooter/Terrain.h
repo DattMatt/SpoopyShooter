@@ -16,7 +16,7 @@ class Terrain
 	std::vector<float> finalHeights;
 	Vertex vertices[512 * 512];
 	UINT indices[512 * 512 * 6];
-
+	unsigned char heights[512 * 512];
 	Mesh* terrMesh;
 
 public:

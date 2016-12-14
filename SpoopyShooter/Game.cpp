@@ -61,7 +61,6 @@ Game::~Game()
 	delete square;
 	delete pentagon;
 	delete emitter;	
-	delete terr;
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();

@@ -20,17 +20,19 @@ Terrain::~Terrain()
 
 void Terrain::LoadRAW()
 {
-	std::vector<unsigned char> heights(xSize * zSize);
 	std::ifstream file;
 	file.open(L"Assets/Terrain/terrain.raw", std::ios_base::binary);
 
 	if (file)
 	{
-		file.read((char*)&heights[0], (std::streamsize)file.tellg());
+		file.seekg(0, file.end);
+		int length = file.tellg();
+		file.seekg(0, file.beg);
+		file.read((char*)&heights[0], length);
 		file.close();
 	}
 
-	for (int i = 0; i < heights.size(); i++)
+	for (int i = 0; i < 512 * 512; i++)
 	{
 		finalHeights.push_back((heights[i] / 255.0f) * heightScale);
 	}

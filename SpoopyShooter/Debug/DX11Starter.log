@@ -1,20 +1,19 @@
 ﻿  Terrain.cpp
-c:\users\colton\documents\spoopyshooter\spoopyshooter\terrain.cpp(33): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\terrain.cpp(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Main.cpp
+c:\users\colton\documents\spoopyshooter\spoopyshooter\terrain.cpp(29): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+c:\users\colton\documents\spoopyshooter\spoopyshooter\terrain.cpp(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Game.cpp
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(77): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(82): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(87): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(92): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(151): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(156): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(189): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(431): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(510): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(521): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(619): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(653): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(76): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(81): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(86): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(91): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(150): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(155): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(188): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(430): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(509): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(520): warning C4018: '<': signed/unsigned mismatch
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(618): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(652): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
   Generating Code...
   DX11Starter.vcxproj -> C:\Users\Colton\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> C:\Users\Colton\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)
