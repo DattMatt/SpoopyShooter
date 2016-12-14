@@ -61,7 +61,7 @@ Game::~Game()
 	delete triangle;
 	delete square;
 	delete pentagon;
-	delete emitter;	
+	delete emitter;		
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();
@@ -418,18 +418,20 @@ void Game::Update(float deltaTime, float totalTime)
 		Quit();		
 	if (GetAsyncKeyState('U') & 0x8000)
 		ChangeState();
+	if (GetAsyncKeyState('K') & 0x8000)
+		isDebug = !isDebug;
 	if (isDebug)
 	{
 		if (GetAsyncKeyState('W') & 0x8000) { debug->MoveFB(1.0f, deltaTime); }
 		if (GetAsyncKeyState('S') & 0x8000) { debug->MoveFB(-1.0f, deltaTime); }
 		if (GetAsyncKeyState('A') & 0x8000) { debug->StrafeLR(-1.0f, deltaTime); }
-		if (GetAsyncKeyState('S') & 0x8000) { debug->StrafeLR(1.0f, deltaTime); }
+		if (GetAsyncKeyState('D') & 0x8000) { debug->StrafeLR(1.0f, deltaTime); }
 	}
 
 	entities[2]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
 	
-	//player->MoveToward(player->GetCurrent()->GetPosition(), 1.0f, deltaTime);
-	//player->UpdateCameraPos();
+	player->MoveToward(player->GetCurrent()->GetPosition(), 1.0f, deltaTime);
+	player->UpdateCameraPos();
 	
 	XMFLOAT3 length;
 	XMStoreFloat3(&length, XMVector3Length(XMLoadFloat3(&player->GetCurrent()->GetPosition()) - XMLoadFloat3(&player->GetPosition())));

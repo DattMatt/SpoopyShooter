@@ -110,6 +110,6 @@ private:
 	POINT prevMousePos;
 	bool isDown;
 	bool uDown;
-	bool isDebug = true;
+	bool isDebug = false;
 };
 
