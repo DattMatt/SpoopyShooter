@@ -1,10 +1,64 @@
-﻿  Game.cpp
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(153): warning C4305: 'argument': truncation from 'double' to 'float'
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(158): warning C4305: 'argument': truncation from 'double' to 'float'
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(672): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(706): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(709): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.exe
-  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.pdb (Full PDB)
+﻿  compilation object save succeeded; see \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\ParticlePS.cso
+  compilation object save succeeded; see \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\ParticleVS.cso
+\\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\PixelShader.hlsl(57,2-66): warning X3206: implicit truncation of vector type
+\\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\PixelShader.hlsl(68,2-50): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\PixelShader.cso
+  compilation object save succeeded; see \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\SkyPS.cso
+  compilation object save succeeded; see \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\SkyVS.cso
+  compilation object save succeeded; see \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\VertexShader.cso
+  Terrain.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\terrain.cpp(29): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\terrain.cpp(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Target.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\target.cpp(12): warning C4477: 'printf' : format string '%f' requires an argument of type 'double', but variadic argument 1 has type 'int'
+  SmokeEmitter.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\smokeemitter.cpp(55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  SimpleShader.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.cpp(123): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.cpp(135): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.cpp(681): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.cpp(741): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.cpp(1310): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
+  Player.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+  Node.cpp
+  Mesh.cpp
+  Material.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+  Main.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+  Game.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\game.cpp(153): warning C4305: 'argument': truncation from 'double' to 'float'
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\game.cpp(158): warning C4305: 'argument': truncation from 'double' to 'float'
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\game.cpp(689): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\game.cpp(724): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\game.cpp(728): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  Entity.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+  Emitter.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+  DXCore.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\dxcore.cpp(383): warning C4244: 'return': conversion from 'WPARAM' to 'HRESULT', possible loss of data
+  Camera.cpp
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\camera.cpp(96): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\camera.cpp(97): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  LINK : \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.exe not found or not built by the last incremental link; performing full link
+  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.exe
+  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.pdb (Full PDB)

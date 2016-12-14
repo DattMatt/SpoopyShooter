@@ -215,6 +215,9 @@ void Game::Init()
 	// Essentially: "What kind of shape should the GPU draw with our data?"
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+	// Hide Cursor
+	//ShowCursor(false);
+
 	state = start;
 	uDown = false;
 }
@@ -461,10 +464,24 @@ void Game::Update(float deltaTime, float totalTime)
 		entities[i]->ReconstructWorldMatrix();
 	}
 
+	// re-setting cursor position after x amount of updates
+	if (!mouseReturn && mouseCounter == 10) {
+		mouseReturn = true;
+		mouseCounter = 0;
+	}
+	if (mouseReturn && mouseCounter == 2) {
+		mouseReturn = false;
+		mouseCounter = 0;
+	}
+	if (mouseReturn) {
+		SetCursorPos(1920 / 2, 1017 / 2);
+	}
+
 	emitter->Update(deltaTime);
 
 	camera->Update(deltaTime);
 	debug->Update(deltaTime);
+	mouseCounter++;
 }
 
 void Game::ChangeState()
@@ -701,14 +718,16 @@ void Game::OnMouseUp(WPARAM buttonState, int x, int y)
 // --------------------------------------------------------
 void Game::OnMouseMove(WPARAM buttonState, int x, int y)
 {
-	// Add any custom code here...	
-	if (isDown && !isDebug) {
-		camera->Rotate(x - prevMousePos.x, y - prevMousePos.y);
+	if (!mouseReturn) {
+		//if (isDown && !isDebug) {
+		if (!isDebug) {
+			camera->Rotate(x - prevMousePos.x, y - prevMousePos.y);
+		}
+		//else if (isDown && isDebug) {
+		else if (isDebug) {
+			debug->Rotate(x - prevMousePos.x, y - prevMousePos.y);
+		}
 	}
-	else if (isDown && isDebug) {
-		debug->Rotate(x - prevMousePos.x, y - prevMousePos.y);
-	}
-
 	// Save the previous mouse position, so we have it for the future
 	prevMousePos.x = x;
 	prevMousePos.y = y;
