@@ -52,6 +52,7 @@ Game::~Game()
 	delete skyVS;
 	delete skyPS;
 	delete camera;
+	delete debug;
 	delete player;
 	delete mat;
 	delete mat2;
@@ -114,11 +115,12 @@ void Game::Init()
 	CreateMatrices();
 	CreateBasicGeometry();
 	camera = new Camera();	
+	debug = new Camera();
 	camera->UpdateProjectionMatrix(width, height);	
+	debug->UpdateProjectionMatrix(width, height);
 	player = new Player(XMFLOAT3(0.0f, 0.0f, -5.0f), camera);
-	terr = new Terrain(512, 512, 50, device);
-	printf("Player Position: (%f, %f, %f)\n", player->GetPosition().x, player->GetPosition().y, player->GetPosition().z);
-	printf("Camera Position: (%f, %f, %f)\n", player->GetCamera()->GetPosition().x, player->GetCamera()->GetPosition().y, player->GetCamera()->GetPosition().z);
+	debug->SetPosition(XMFLOAT3(0.0f, 5.0f, 0.0f));
+	terr = new Terrain(512, 512, 50, device);	
 	prevMousePos.x = 0;
 	prevMousePos.y = 0;
 	isDown = false;
@@ -169,7 +171,7 @@ void Game::Init()
 		XMFLOAT4(1, 0.1f, 0.1f, 0.08f),
 		XMFLOAT4(1, 0.6f, 0.1f, 0),
 		XMFLOAT3(-2, 2, 0),
-		XMFLOAT3(8, 0, 0),
+		XMFLOAT3(8, 4, 0),
 		XMFLOAT3(0, -1, 0),
 		device,
 		particleVS,
@@ -396,6 +398,8 @@ void Game::OnResize()
 	// Handle base-level DX resize stuff
 	DXCore::OnResize();
 	camera->UpdateProjectionMatrix(width, height);
+	debug->UpdateProjectionMatrix(width, height);
+
 }
 
 // --------------------------------------------------------
@@ -408,6 +412,13 @@ void Game::Update(float deltaTime, float totalTime)
 		Quit();		
 	if (GetAsyncKeyState('U') & 0x8000)
 		ChangeState();
+	if (isDebug)
+	{
+		if (GetAsyncKeyState('W') & 0x8000) { debug->MoveFB(1.0f, deltaTime); }
+		if (GetAsyncKeyState('S') & 0x8000) { debug->MoveFB(-1.0f, deltaTime); }
+		if (GetAsyncKeyState('A') & 0x8000) { debug->StrafeLR(-1.0f, deltaTime); }
+		if (GetAsyncKeyState('S') & 0x8000) { debug->StrafeLR(1.0f, deltaTime); }
+	}
 
 	entities[1]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
 	
@@ -430,6 +441,7 @@ void Game::Update(float deltaTime, float totalTime)
 	emitter->Update(deltaTime);
 
 	camera->Update(deltaTime);
+	debug->Update(deltaTime);
 }
 
 void Game::ChangeState()
@@ -488,7 +500,10 @@ void Game::Draw(float deltaTime, float totalTime)
 		"pLight",
 		&pLight,
 		sizeof(PointLight));
-	pixelShader->SetFloat3("CameraPosition", camera->GetPosition());
+	if (!isDebug)
+		pixelShader->SetFloat3("CameraPosition", camera->GetPosition());
+	else
+		pixelShader->SetFloat3("CameraPosition", debug->GetPosition());
 
 	// Set buffers in the input assembler
 	//  - Do this ONCE PER OBJECT you're drawing, since each object might
@@ -502,8 +517,11 @@ void Game::Draw(float deltaTime, float totalTime)
 	context->DrawIndexed(terr->getMesh()->GetIndexCount(), 0, 0);
 
 	for (int i = 0; i < entities.size(); i++)
-	{		
-		entities[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());	
+	{	
+		if(!isDebug)
+			entities[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());
+		else
+			entities[i]->PrepareMaterial(debug->GetViewMatrix(), debug->GetProjectionMatrix());
 		ID3D11Buffer* temp = entities[i]->GetMesh()->GetVertexBuffer();
 		context->IASetVertexBuffers(0, 1, &temp, &stride, &offset);
 		context->IASetIndexBuffer(entities[i]->GetMesh()->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
@@ -514,7 +532,10 @@ void Game::Draw(float deltaTime, float totalTime)
 	}
 	for (int i = 0; i < targets.size(); i++)
 	{
-		targets[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());
+		if(!isDebug)
+			targets[i]->PrepareMaterial(camera->GetViewMatrix(), camera->GetProjectionMatrix());
+		else
+			targets[i]->PrepareMaterial(debug->GetViewMatrix(), debug->GetProjectionMatrix());
 		ID3D11Buffer* temp = targets[i]->GetMesh()->GetVertexBuffer();
 		context->IASetVertexBuffers(0, 1, &temp, &stride, &offset);
 		context->IASetIndexBuffer(targets[i]->GetMesh()->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
@@ -543,8 +564,16 @@ void Game::Draw(float deltaTime, float totalTime)
 	context->IASetIndexBuffer(skyIB, DXGI_FORMAT_R32_UINT, 0);
 
 	// Set up shaders
-	skyVS->SetMatrix4x4("view", camera->GetViewMatrix());
-	skyVS->SetMatrix4x4("projection", camera->GetProjectionMatrix());
+	if (!isDebug)
+	{
+		skyVS->SetMatrix4x4("view", camera->GetViewMatrix());
+		skyVS->SetMatrix4x4("projection", camera->GetProjectionMatrix());
+	}
+	else
+	{
+		skyVS->SetMatrix4x4("view", debug->GetViewMatrix());
+		skyVS->SetMatrix4x4("projection", debug->GetProjectionMatrix());
+	}
 	skyVS->CopyAllBufferData();
 	skyVS->SetShader();
 
@@ -586,7 +615,14 @@ void Game::Draw(float deltaTime, float totalTime)
 	context->OMSetBlendState(particleBlendState, fBlend, 0xffffffff);
 	context->OMSetDepthStencilState(particleDepthState, 0);
 
-	emitter->Draw(context, camera);
+	if (!isDebug)
+	{
+		emitter->Draw(context, camera);
+	}
+	else
+	{
+		emitter->Draw(context, debug);
+	}
 
 	context->OMSetBlendState(0, fBlend, 0xffffffff);
 	context->OMSetDepthStencilState(0, 0);
@@ -643,8 +679,11 @@ void Game::OnMouseUp(WPARAM buttonState, int x, int y)
 void Game::OnMouseMove(WPARAM buttonState, int x, int y)
 {
 	// Add any custom code here...	
-	if (isDown) {
+	if (isDown && !isDebug) {
 		camera->Rotate(x - prevMousePos.x, y - prevMousePos.y);
+	}
+	else if (isDown && isDebug) {
+		debug->Rotate(x - prevMousePos.x, y - prevMousePos.y);
 	}
 
 	// Save the previous mouse position, so we have it for the future

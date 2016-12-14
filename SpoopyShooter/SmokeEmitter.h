@@ -19,7 +19,7 @@ public:
 		SimpleVertexShader* vs,
 		SimplePixelShader* ps,
 		ID3D11ShaderResourceView* texture);
-	~SmokeEmitter();
+	~SmokeEmitter();	
 	void Spawn() override;
 	void RandomizeStartingVelocity();
 };
