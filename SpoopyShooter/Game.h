@@ -72,6 +72,10 @@ private:
 	ID3D11ShaderResourceView* stoneFence;
 	ID3D11ShaderResourceView* terrainView;
 	ID3D11ShaderResourceView* barkView;
+	ID3D11ShaderResourceView* barkNormalMap;
+	ID3D11ShaderResourceView* leavesNormalMap;
+	ID3D11ShaderResourceView* ghostNormalMap;
+	ID3D11ShaderResourceView* fenceNormalMap;
 	ID3D11ShaderResourceView* skySRV;
 	ID3D11ShaderResourceView* ghostRes;
 	ID3D11SamplerState* sampler;

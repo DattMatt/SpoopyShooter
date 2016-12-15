@@ -58,12 +58,16 @@ Game::~Game()
 	delete mat2;
 	delete mat3;
 	delete matTerrain;
-	delete triangle;
-	delete square;
-	delete pentagon;
+	//delete triangle;
+	//delete square;
+	//delete pentagon;
 	delete emitter;	
 	delete matGhost;
 	delete matBark;
+	barkNormalMap->Release();
+	leavesNormalMap->Release();
+	ghostNormalMap->Release();
+	fenceNormalMap->Release();
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();
@@ -278,14 +282,18 @@ void Game::LoadShaders()
 	HRESULT ghosttext = CreateWICTextureFromFile(device, context, L"Assets/Textures/ghost.png", 0, &ghostRes);
 	CreateWICTextureFromFile(device, context, L"Assets/Textures/circleParticle.jpg", 0, &partTex);
 	CreateWICTextureFromFile(device, context, L"Assets/Textures/bark.tif", 0, &barkView);
+	CreateWICTextureFromFile(device, context, L"Assets/Textures/barkNormalMap.tif", 0, &barkNormalMap);
+	CreateWICTextureFromFile(device, context, L"Assets/Textures/leaves_NRM.jpg", 0, &leavesNormalMap);
+	CreateWICTextureFromFile(device, context, L"Assets/Textures/ghost_NRM.jpg", 0, &ghostNormalMap);
+	CreateWICTextureFromFile(device, context, L"Assets/Textures/StoneFence_NRM.jpg", 0, &fenceNormalMap);
 	HRESULT sampResult = device->CreateSamplerState(&description, &sampler);
 
-	mat = new Material(vertexShader, pixelShader, leavesView, sampler);
+	mat = new Material(vertexShader, pixelShader, leavesView, leavesNormalMap, sampler);
 	mat2 = new Material(vertexShader, pixelShader, brickView, sampler);
-	mat3 = new Material(vertexShader, pixelShader, stoneFence, sampler);
-	matTerrain = new Material(vertexShader, pixelShader, terrainView, sampler);
-	matGhost = new Material(vertexShader, pixelShader,ghostRes, sampler);
-	matBark = new Material(vertexShader, pixelShader, barkView, sampler);
+	mat3 = new Material(vertexShader, pixelShader, stoneFence, fenceNormalMap, sampler);
+	matTerrain = new Material(vertexShader, pixelShader, terrainView, ghostNormalMap, sampler);
+	matGhost = new Material(vertexShader, pixelShader,ghostRes, ghostNormalMap, sampler);
+	matBark = new Material(vertexShader, pixelShader, barkView, barkNormalMap, sampler);
 
 	// You'll notice that the code above attempts to load each
 	// compiled shader file (.cso) from two different relative paths.
@@ -359,7 +367,7 @@ void Game::CreateBasicGeometry()
 	XMFLOAT3 normTemp = XMFLOAT3(0, 0, -1);
 	XMFLOAT2 uvTemp = XMFLOAT2(0, 0);
 
-	// Set up the vertices of the triangle we would like to draw
+	/*// Set up the vertices of the triangle we would like to draw
 	// - We're going to copy this array, exactly as it exists in memory
 	//    over to a DirectX-controlled data structure (the vertex buffer)
 	Vertex tVertices[] =
@@ -376,7 +384,7 @@ void Game::CreateBasicGeometry()
 	// - But just to see how it's done...
 	UINT tIndices[] = { 0, 1, 2 };
 
-	triangle = new Mesh(tVertices, 3, tIndices, 3, device);
+	//triangle = new Mesh(tVertices, 3, tIndices, 3, device);
 
 	Vertex sVertices[] =
 	{
@@ -388,7 +396,7 @@ void Game::CreateBasicGeometry()
 
 	UINT sIndices[] = { 0, 1, 2, 0, 2, 3 };
 
-	square = new Mesh(sVertices, 4, sIndices, 6, device);
+	//square = new Mesh(sVertices, 4, sIndices, 6, device);
 
 	Vertex pVertices[] =
 	{
@@ -401,7 +409,8 @@ void Game::CreateBasicGeometry()
 
 	UINT pIndices[] = { 0, 1, 2, 0, 2, 3, 0, 3, 4 };
 
-	pentagon = new Mesh(pVertices, 5, pIndices, 9, device);
+	//pentagon = new Mesh(pVertices, 5, pIndices, 9, device);
+	*/
 
 	Mesh* cone = new Mesh("Assets/Models/cone.obj", device);
 	Mesh* cube = new Mesh("Assets/Models/cube.obj", device);

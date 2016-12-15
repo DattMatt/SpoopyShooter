@@ -65,6 +65,9 @@ void Entity::PrepareMaterial(XMFLOAT4X4 _viewMatrix, XMFLOAT4X4 _projectionMatri
 	
 	mat->GetPixelShader()->SetSamplerState("basicSampler", mat->GetSamplerState());
 	mat->GetPixelShader()->SetShaderResourceView("diffuseTexture", mat->GetSRV());
+	if (mat->GetIfNorm() == true) {
+		mat->GetPixelShader()->SetShaderResourceView("NormalMap", mat->GetNMSRV());
+	}
 	// Send data to shader variables
 	//  - Do this ONCE PER OBJECT you're drawing
 	//  - This is actually a complex process of copying data to a local buffer
