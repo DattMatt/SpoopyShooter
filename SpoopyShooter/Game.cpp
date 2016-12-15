@@ -151,23 +151,18 @@ void Game::Init()
 	device->CreateRasterizerState(&rsDesc, &skyRastState);	
 	
 	dirLight = {
-		XMFLOAT4(0.1,0.1,0.1,1.0),
-		XMFLOAT4(0,0,0,1),
+		XMFLOAT4(0.1,0.0,0.2,1.0),
+		XMFLOAT4(0,0,0,0.5),
 		XMFLOAT3(1,-1,0)
-	};
-	dirLight2 = {
-		XMFLOAT4(0.1,0.1,0.1,1.0),
-		XMFLOAT4(0,0,0,1),
-		XMFLOAT3(-1,-1,0)
 	};	
 	pLight = {
-		XMFLOAT4(1, 0, 0, 1),
+		XMFLOAT4(1, 1, 1, 1),
 		XMFLOAT3(-1.8f, 1.0f, 0)
 	};
 
 	emitter = new SmokeEmitter(
-		800,
-		20,
+		500,
+		10,
 		5,
 		3.0f,
 		1.0f,
@@ -175,7 +170,7 @@ void Game::Init()
 		XMFLOAT4(0.1f, 0.1f, 0.1f, 0.1f),
 		XMFLOAT3(-1, 0, 1),
 		XMFLOAT3(8, 1, 0),
-		XMFLOAT3(0, 0, 0),
+		XMFLOAT3(-0.5f, 0, -0.5f),
 		device,
 		particleVS,
 		particlePS,
@@ -230,7 +225,7 @@ void Game::Init()
 	// Tell the input assembler stage of the pipeline what kind of
 	// geometric primitives (points, lines or triangles) we want to draw.  
 	// Essentially: "What kind of shape should the GPU draw with our data?"
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);		
 
 	// Hide Cursor
 	ShowCursor(false);
@@ -447,11 +442,7 @@ void Game::OnResize()
 // --------------------------------------------------------
 void Game::Update(float deltaTime, float totalTime)
 {
-	// Quit if the escape key is pressed
-	if (targets[0]->GetVisible())
-	{
-		printf("Ghost is visible");
-	}
+	// Quit if the escape key is pressed	
 	if (GetAsyncKeyState(VK_ESCAPE))
 		Quit();		
 	if (GetAsyncKeyState('U') & 0x8000)
@@ -554,10 +545,6 @@ void Game::Draw(float deltaTime, float totalTime)
 	pixelShader->SetData(
 		"dirLight",
 		&dirLight,
-		sizeof(DirectionalLight));
-	pixelShader->SetData(
-		"dirLight2",
-		&dirLight2,
 		sizeof(DirectionalLight));
 	pixelShader->SetData(
 		"pLight",
