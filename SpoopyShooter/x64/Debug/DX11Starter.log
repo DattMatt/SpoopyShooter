@@ -1,5 +1,9 @@
-﻿  Emitter.cpp
+﻿  Game.cpp
 \\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
 \\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(158): warning C4305: 'argument': truncation from 'double' to 'float'
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(738): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(774): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\game.cpp(778): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
   DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.pdb (Full PDB)

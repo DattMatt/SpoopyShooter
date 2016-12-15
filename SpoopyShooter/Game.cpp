@@ -479,7 +479,7 @@ void Game::Update(float deltaTime, float totalTime)
 		if (GetAsyncKeyState('D') & 0x8000) { debug->StrafeLR(1.0f, deltaTime); }
 	}
 
-	entities[2]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
+	//entities[2]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
 	
 	player->MoveToward(player->GetCurrent()->GetPosition(), 1.0f, deltaTime);
 	player->UpdateCameraPos();
