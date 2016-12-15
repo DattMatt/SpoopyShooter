@@ -75,7 +75,9 @@ Game::~Game()
 	skyDepthState->Release();
 	skyRastState->Release();
 	alphaBlendState->Release();
-	ghostRes->Release();
+	if (ghostRes != NULL) {
+		ghostRes->Release();
+	}
 
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -350,9 +352,9 @@ void Game::CreateBasicGeometry()
 {
 	// Create some temporary variables to represent colors
 	// - Not necessary, just makes things more readable
-	XMFLOAT4 red	= XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-	XMFLOAT4 green	= XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-	XMFLOAT4 blue	= XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+	XMFLOAT4 red = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+	XMFLOAT4 green = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	XMFLOAT4 blue = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
 	XMFLOAT4 magenta = XMFLOAT4(1.0f, 0.0f, 1.0f, 1.0f);
 	XMFLOAT4 cyan = XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f);
 	XMFLOAT3 normTemp = XMFLOAT3(0, 0, -1);
@@ -361,7 +363,7 @@ void Game::CreateBasicGeometry()
 	// Set up the vertices of the triangle we would like to draw
 	// - We're going to copy this array, exactly as it exists in memory
 	//    over to a DirectX-controlled data structure (the vertex buffer)
-	Vertex tVertices[] = 
+	Vertex tVertices[] =
 	{
 		{ XMFLOAT3(+0.0f, +0.5f, +0.0f), normTemp, uvTemp},
 		{ XMFLOAT3(+0.75f, -0.5f, +0.0f), normTemp, uvTemp},
@@ -373,7 +375,7 @@ void Game::CreateBasicGeometry()
 	// - Indices are technically not required if the vertices are in the buffer 
 	//    in the correct order and each one will be used exactly once
 	// - But just to see how it's done...
-	UINT tIndices[] = { 0, 1, 2 };	
+	UINT tIndices[] = { 0, 1, 2 };
 
 	triangle = new Mesh(tVertices, 3, tIndices, 3, device);
 
@@ -413,23 +415,39 @@ void Game::CreateBasicGeometry()
 	meshes.push_back(fencePillar);
 
 	entities.push_back(new Entity(terr->getMesh(), matTerrain));
-	entities.push_back(new Entity(cone, mat));
-	entities.push_back(new Entity(cube, mat2));
+	//entities.push_back(new Entity(cone, mat));
+	//entities.push_back(new Entity(cube, mat2));
 	//entities.push_back(new Entity(ghost, mat));
-	entities.push_back(new Entity(cube, mat));
-	entities.push_back(new Entity(fencePillar, mat3));
-	entities.push_back(new Entity(square, mat));
+	//entities.push_back(new Entity(cube, mat));
+	//entities.push_back(new Entity(fencePillar, mat3));
+	//entities.push_back(new Entity(square, mat));
 
 	//targets.push_back(new Target(cube, mat));
-	targets.push_back(new Target(ghost, mat));	
+	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat));
+	targets.push_back(new Target(ghost, mat));
+
+	printf("Radius of Ghost: %f", targets[0]->GetRadius());
 
 	entities[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 0.0f));
-	entities[1]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 0.0f));
-	entities[2]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 0.0f));
-	entities[3]->SetPositionVector(XMFLOAT3(0.0f, 1.0f, 4.0f));
-	entities[4]->SetPositionVector(XMFLOAT3(-5.0f, 0.0f, 0.0f));
 
-	targets[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 2.0f));
+	targets[0]->SetPositionVector(XMFLOAT3(8.0f, 0.0f, 0.0f));
+	targets[1]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 5.0f));
+	targets[2]->SetPositionVector(XMFLOAT3(-6.0f, 0.0f, 6.0f));
+	targets[3]->SetPositionVector(XMFLOAT3(10.0f, 0.0f, 7.0f));
+	targets[4]->SetPositionVector(XMFLOAT3(4.0f, 0.0f, 15.0f));
+	targets[5]->SetPositionVector(XMFLOAT3(-10.0f, 0.0f, 15.0f));
+	targets[6]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 17.0f));
+	targets[7]->SetPositionVector(XMFLOAT3(8.0f, 0.0f, 23.0f));
+	targets[8]->SetPositionVector(XMFLOAT3(-4.0f, 0.0f, 20.0f));
+	targets[9]->SetPositionVector(XMFLOAT3(-12.0f, 0.0f, 20.0f));
 }
 
 
@@ -452,10 +470,6 @@ void Game::OnResize()
 void Game::Update(float deltaTime, float totalTime)
 {
 	// Quit if the escape key is pressed
-	if (targets[0]->GetVisible())
-	{
-		printf("Ghost is visible");
-	}
 	if (GetAsyncKeyState(VK_ESCAPE))
 		Quit();		
 	if (GetAsyncKeyState('U') & 0x8000)
@@ -470,7 +484,7 @@ void Game::Update(float deltaTime, float totalTime)
 		if (GetAsyncKeyState('D') & 0x8000) { debug->StrafeLR(1.0f, deltaTime); }
 	}
 
-	entities[2]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
+	//entities[2]->Move(XMFLOAT3(sin(totalTime) * 3, 0.0f, 0.0f), deltaTime);
 	
 	player->MoveToward(player->GetCurrent()->GetPosition(), 1.0f, deltaTime);
 	player->UpdateCameraPos();
@@ -489,6 +503,12 @@ void Game::Update(float deltaTime, float totalTime)
 	for (int i = 0; i < entities.size(); i++)
 	{
 		entities[i]->ReconstructWorldMatrix();
+	}
+	
+	for (int i = 0; i < targets.size(); i++)
+	{
+		targets[i]->ReconstructWorldMatrix();
+		targets[i]->Update();
 	}
 
 	// re-setting cursor position after x amount of updates
@@ -725,6 +745,7 @@ void Game::OnMouseDown(WPARAM buttonState, int x, int y)
 	isDown = true;
 
 	camera->Raycast(x, y, targets);
+	printf("Camera position x: %f, y: %f, z: %f", camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 
 	// Save the previous mouse position, so we have it for the future
 	prevMousePos.x = x;

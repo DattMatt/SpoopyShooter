@@ -47,6 +47,13 @@ Target::Target(Mesh* _mesh, Material* _mat) : Entity(_mesh, _mat)
 	radius = sqrtf(powf(maxs.x - centerPoint.x, 2) + powf(maxs.y - centerPoint.y, 2) + powf(maxs.z - centerPoint.z, 2));
 }
 
+void Target::Update() {
+	centerPoint.x = this->GetPositionVector().x;
+	centerPoint.y = this->GetPositionVector().y;
+	centerPoint.z = this->GetPositionVector().z;
+
+}
+
 XMFLOAT3 Target::GetCenterPoint()
 {
 	return centerPoint;
