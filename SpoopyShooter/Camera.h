@@ -20,6 +20,7 @@ private:
 	XMFLOAT3 unitX;
 	float xRot;
 	float yRot;
+	int kills;
 
 public:
 	Camera();
