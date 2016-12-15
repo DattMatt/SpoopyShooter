@@ -273,7 +273,7 @@ void Game::LoadShaders()
 	HRESULT texResult2 = CreateWICTextureFromFile(device, context, L"Assets/Textures/brick.jpg", 0, &brickView);
 	HRESULT texResult3 = CreateWICTextureFromFile(device, context, L"Assets/Textures/StoneFence.png", 0, &stoneFence);
 	HRESULT texResult4 = CreateWICTextureFromFile(device, context, L"Assets/Terrain/grass.png", 0, &terrainView);
-	HRESULT ghosttext = CreateWICTextureFromFile(device, context, L"Assets/Terrain/ghost.png", 0, &ghostRes);
+	HRESULT ghosttext = CreateWICTextureFromFile(device, context, L"Assets/Textures/ghost.png", 0, &ghostRes);
 	CreateWICTextureFromFile(device, context, L"Assets/Textures/circleParticle.jpg", 0, &partTex);
 	HRESULT sampResult = device->CreateSamplerState(&description, &sampler);
 
@@ -418,31 +418,33 @@ void Game::CreateBasicGeometry()
 	//entities.push_back(new Entity(square, mat));
 
 	//targets.push_back(new Target(cube, mat));
-	targets.push_back(new Target(ghost, mat));
-	targets.push_back(new Target(ghost, mat));
-	targets.push_back(new Target(ghost, mat));
-	targets.push_back(new Target(ghost, mat));
-	targets.push_back(new Target(ghost, mat));
-	targets.push_back(new Target(ghost, mat));
-	targets.push_back(new Target(ghost, mat));
-	targets.push_back(new Target(ghost, mat));
-	targets.push_back(new Target(ghost, mat));
-	targets.push_back(new Target(ghost, mat));
+	//targets.push_back(new Target(ghost, matGhost));	
+
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
 
 	printf("Radius of Ghost: %f", targets[0]->GetRadius());
 
 	entities[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 0.0f));
 
-	targets[0]->SetPositionVector(XMFLOAT3(8.0f, 0.0f, 0.0f));
-	targets[1]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 5.0f));
-	targets[2]->SetPositionVector(XMFLOAT3(-6.0f, 0.0f, 6.0f));
-	targets[3]->SetPositionVector(XMFLOAT3(10.0f, 0.0f, 7.0f));
-	targets[4]->SetPositionVector(XMFLOAT3(4.0f, 0.0f, 15.0f));
-	targets[5]->SetPositionVector(XMFLOAT3(-10.0f, 0.0f, 15.0f));
-	targets[6]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 17.0f));
-	targets[7]->SetPositionVector(XMFLOAT3(8.0f, 0.0f, 23.0f));
-	targets[8]->SetPositionVector(XMFLOAT3(-4.0f, 0.0f, 20.0f));
-	targets[9]->SetPositionVector(XMFLOAT3(-12.0f, 0.0f, 20.0f));
+	targets[0]->SetPositionVector(XMFLOAT3(8.0f,   1.0f, 0.0f));
+	targets[1]->SetPositionVector(XMFLOAT3(0.0f,   1.0f, 5.0f));
+	targets[2]->SetPositionVector(XMFLOAT3(-6.0f,  1.0f, 6.0f));
+	targets[3]->SetPositionVector(XMFLOAT3(10.0f,  1.0f, 7.0f));
+	targets[4]->SetPositionVector(XMFLOAT3(4.0f,   1.0f, 15.0f));
+	targets[5]->SetPositionVector(XMFLOAT3(-10.0f, 1.0f, 15.0f));
+	targets[6]->SetPositionVector(XMFLOAT3(2.0f,   1.0f, 17.0f));
+	targets[7]->SetPositionVector(XMFLOAT3(8.0f,   1.0f, 23.0f));
+	targets[8]->SetPositionVector(XMFLOAT3(-4.0f,  1.0f, 20.0f));
+	targets[9]->SetPositionVector(XMFLOAT3(-12.0f, 1.0f, 20.0f));
 }
 
 
@@ -696,7 +698,7 @@ void Game::Draw(float deltaTime, float totalTime)
 	blend.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
 	blend.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 	blend.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	blend.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+	blend.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 	blend.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 	device->CreateBlendState(&blend, &particleBlendState);
 
