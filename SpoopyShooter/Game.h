@@ -12,6 +12,7 @@
 #include "SmokeEmitter.h"
 #include "Terrain.h"
 #include <DirectXMath.h>
+#include <SpriteFont.h>
 
 class Game 
 	: public DXCore
@@ -95,7 +96,6 @@ private:
 	SimplePixelShader* skyPS;
 
 	DirectionalLight dirLight;
-	DirectionalLight dirLight2;
 
 	PointLight pLight;
 
@@ -116,6 +116,7 @@ private:
 	POINT prevMousePos;
 	bool isDown;
 	bool uDown;
-	bool isDebug = false;
+	bool isDebug = false;	
+	int kills = 0;
 };
 

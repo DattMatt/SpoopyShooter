@@ -97,7 +97,7 @@ Emitter::~Emitter()
 	indexBuffer->Release();
 }
 
-void Emitter::Update(float dt)
+void Emitter::Update(float dt, XMFLOAT3 playerPos)
 {
 	if (firstAliveIndex < firstDeadIndex)
 	{
@@ -120,6 +120,8 @@ void Emitter::Update(float dt)
 		Spawn();
 		timeSinceEmit -= secondsPerParticle;
 	}
+
+	emitterPosition = playerPos;
 }
 
 void Emitter::UpdateSingle(float dt, int index)

@@ -44,7 +44,7 @@ public:
 	);
 	~Emitter();
 
-	void Update(float dt);
+	void Update(float dt, XMFLOAT3 playerPos);
 	virtual void UpdateSingle(float dt, int index);
 
 	virtual void Spawn();
