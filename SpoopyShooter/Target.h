@@ -12,6 +12,7 @@ private:
 public:
 	Target();
 	Target(Mesh* _mesh, Material* _mat);
+	void Update();
 	XMFLOAT3 GetCenterPoint();
 	float GetRadius();
 	~Target();

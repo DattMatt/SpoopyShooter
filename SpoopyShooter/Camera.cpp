@@ -101,7 +101,7 @@ void Camera::Raycast(float mouseX, float mouseY, std::vector<Target*>& targets)
 {
 	// Set origin to near plane and end to far plane
 	XMFLOAT4 origin = XMFLOAT4(mouseX, mouseY, 0, 1);
-	XMFLOAT4 end = XMFLOAT4(mouseX, mouseY, 1, 1);
+	XMFLOAT4 end = XMFLOAT4(mouseX, mouseY, 3, 1);
 
 	// Load into XMMATRIX
 	XMMATRIX tempView = XMLoadFloat4x4(&viewMatrix);
@@ -120,31 +120,7 @@ void Camera::Raycast(float mouseX, float mouseY, std::vector<Target*>& targets)
 	{
 		
 		XMVECTOR distObj = XMVectorSubtract(XMVectorSet(position.x, position.y, position.z, 1), XMVectorSet(targets[i]->GetCenterPoint().x, targets[i]->GetCenterPoint().y, targets[i]->GetCenterPoint().z, 1) );
-		/*
-		float B_half;
-		float C;
-		XMStoreFloat(&B_half, XMVector4Dot(distObj, rayDir));
-		XMStoreFloat(&C, XMVector4Dot(distObj, distObj));
-		float intersect = (B_half * B_half) - C;
-		printf("%f", C);
-		
 
-		float a;
-		XMStoreFloat(&a, XMVector4Dot(distObj, XMVectorSet(forward.x, forward.y, forward.z, 1)));
-		printf("%f", a);
-		if (a >= 0)
-		{
-			float disDot;
-			XMStoreFloat(&disDot, XMVector4Dot(distObj, distObj));
-			float d = sqrtf(disDot - (a * a));
-			if (d >= 0)
-			{
-				printf("HIT!!! ");
-			}
-			printf("%f", d);
-		}
-		*/
-		//printf("%f ", forward.x);
 		float proj;
 		XMStoreFloat(&proj, XMVector4Dot(distObj, XMVectorSet(forward.x, forward.y, forward.z, 1)));
 		XMVECTOR projVec = XMVector4Normalize(XMVectorSet(forward.x, forward.y, forward.z, 1));
@@ -158,7 +134,7 @@ void Camera::Raycast(float mouseX, float mouseY, std::vector<Target*>& targets)
 		//float distFromObjToProj = sqrtf(fOTP.x * fOTP.x + fOTP.y * fOTP.y + fOTP.z * fOTP.z);
 		float distFromObjToProj = sqrtf(powf(fDistObj.x - fProjVec.x, 2) + powf(fDistObj.y - fProjVec.y, 2) + powf(fDistObj.z - fProjVec.z, 2));
 		printf("%f \n", distFromObjToProj);
-		printf("%f \n", targets[i]->GetRadius());
+		//printf("%f \n", targets[i]->GetRadius());
 
 		if (distFromObjToProj <= targets[i]->GetRadius() && targets[i]->GetVisible())
 		{
