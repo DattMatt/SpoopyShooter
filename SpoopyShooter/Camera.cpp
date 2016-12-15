@@ -13,6 +13,7 @@ Camera::Camera()
 	right = unitX;
 	xRot = 0.0f;
 	yRot = 0.0f;
+	kills = 0;
 	XMMATRIX view = XMMatrixLookToLH(
 		XMLoadFloat3(&position),			//Camera position
 		XMLoadFloat3(&forward),				//Forward vector
@@ -133,13 +134,14 @@ void Camera::Raycast(float mouseX, float mouseY, std::vector<Target*>& targets)
 		//XMStoreFloat4(&fOTP, XMVectorSubtract(distObj, projVec));
 		//float distFromObjToProj = sqrtf(fOTP.x * fOTP.x + fOTP.y * fOTP.y + fOTP.z * fOTP.z);
 		float distFromObjToProj = sqrtf(powf(fDistObj.x - fProjVec.x, 2) + powf(fDistObj.y - fProjVec.y, 2) + powf(fDistObj.z - fProjVec.z, 2));
-		printf("%f \n", distFromObjToProj);
+		//printf("%f \n", distFromObjToProj);
 		//printf("%f \n", targets[i]->GetRadius());
 
 		if (distFromObjToProj <= targets[i]->GetRadius() && targets[i]->GetVisible())
 		{
 			targets[i]->SetVisible(false);
-			
+			kills += 1;
+			printf("\nKills: %i", kills);
 		}
 	}
 }

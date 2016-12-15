@@ -9,7 +9,7 @@ Target::Target(Mesh* _mesh, Material* _mat) : Entity(_mesh, _mat)
 {
 	mins = XMFLOAT3(0, 0, 0);
 	maxs = XMFLOAT3(0, 0, 0);
-	printf("%f \n", _mesh->numVerts);
+	//printf("%f \n", _mesh->numVerts);
 	// Find the mins and maxs
 	for (int i = 0; i < _mesh->numVerts; i++)
 	{

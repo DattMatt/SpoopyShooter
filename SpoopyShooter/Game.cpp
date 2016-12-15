@@ -214,7 +214,7 @@ void Game::Init()
 	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL & ~D3D11_COLOR_WRITE_ENABLE_ALPHA;
 
 	device->CreateBlendState(&blendDesc, &alphaBlendState);
 
@@ -438,23 +438,22 @@ void Game::CreateBasicGeometry()
 	targets.push_back(new Target(ghost, matGhost));
 	targets.push_back(new Target(ghost, matGhost));
 	targets.push_back(new Target(ghost, matGhost));
-	targets.push_back(new Target(treeBase, matBark));
+	//targets.push_back(new Target(treeBase, matBark));
 
-	printf("Radius of Ghost: %f", targets[0]->GetRadius());
+	//printf("Radius of Ghost: %f", targets[0]->GetRadius());
 
 	entities[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 0.0f));
 
-	targets[0]->SetPositionVector(XMFLOAT3(8.0f,   1.0f, 0.0f));
-	targets[1]->SetPositionVector(XMFLOAT3(0.0f,   1.0f, 5.0f));
-	targets[2]->SetPositionVector(XMFLOAT3(-6.0f,  1.0f, 6.0f));
-	targets[3]->SetPositionVector(XMFLOAT3(10.0f,  1.0f, 7.0f));
-	targets[4]->SetPositionVector(XMFLOAT3(4.0f,   1.0f, 15.0f));
-	targets[5]->SetPositionVector(XMFLOAT3(-10.0f, 1.0f, 15.0f));
-	targets[6]->SetPositionVector(XMFLOAT3(2.0f,   1.0f, 17.0f));
-	targets[7]->SetPositionVector(XMFLOAT3(8.0f,   1.0f, 23.0f));
-	targets[8]->SetPositionVector(XMFLOAT3(-4.0f,  1.0f, 20.0f));
-	targets[9]->SetPositionVector(XMFLOAT3(-12.0f, 1.0f, 20.0f));
-	targets[10]->SetPositionVector(XMFLOAT3(-8.0f, 1.0f, 4.0f));
+	targets[0]->SetPositionVector(XMFLOAT3(8.0f,   2.5f, 0.0f));
+	targets[1]->SetPositionVector(XMFLOAT3(0.0f,   2.5f, 5.0f));
+	targets[2]->SetPositionVector(XMFLOAT3(-6.0f,  2.5f, 6.0f));
+	targets[3]->SetPositionVector(XMFLOAT3(10.0f,  2.5f, 7.0f));
+	targets[4]->SetPositionVector(XMFLOAT3(4.0f,   2.5f, 15.0f));
+	targets[5]->SetPositionVector(XMFLOAT3(-10.0f, 2.5f, 15.0f));
+	targets[6]->SetPositionVector(XMFLOAT3(2.0f,   2.5f, 17.0f));
+	targets[7]->SetPositionVector(XMFLOAT3(8.0f,   2.5f, 23.0f));
+	targets[8]->SetPositionVector(XMFLOAT3(-4.0f,  2.5f, 20.0f));
+	targets[9]->SetPositionVector(XMFLOAT3(-12.0f, 2.5f, 20.0f));
 }
 
 
@@ -545,19 +544,19 @@ void Game::ChangeState()
 		case start : 
 		{
 			state = game;
-			printf("Game");
+			//printf("Game");
 			break;
 		}
 		case game:	
 		{
 			state = end;
-			printf("End");
+			//printf("End");
 			break;
 		}
 		case end:	
 		{
 			state = start;
-			printf("Start");
+			//printf("Start");
 			break;
 		}
 	}
@@ -748,7 +747,6 @@ void Game::OnMouseDown(WPARAM buttonState, int x, int y)
 	isDown = true;
 
 	camera->Raycast(x, y, targets);
-	printf("Camera position x: %f, y: %f, z: %f", camera->GetPosition().x, camera->GetPosition().y, camera->GetPosition().z);
 
 	// Save the previous mouse position, so we have it for the future
 	prevMousePos.x = x;
