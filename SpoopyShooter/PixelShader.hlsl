@@ -42,7 +42,6 @@ struct SpotLight
 cbuffer data : register(b0)
 {
 	DirectionalLight dirLight;
-	DirectionalLight dirLight2;
 
 	PointLight pLight;
 
@@ -81,11 +80,10 @@ float4 main(VertexToPixel input) : SV_TARGET
 {	
 	input.normal = normalize(input.normal);	
 	float4 surfaceColor = diffuseTexture.Sample(basicSampler, input.uv);
-	float4 directionalLight = float4(CalculateDirLight(input.normal, dirLight), 1);
-	float4 directionalLight2 = float4(CalculateDirLight(input.normal, dirLight2), 1);
+	float4 directionalLight = float4(CalculateDirLight(input.normal, dirLight), 1);	
 
 	float4 pointLight = float4(CalculatePointLight(input.normal, input.worldPos, pLight), 1);
-	float3 finalColor = (directionalLight + directionalLight2 + pointLight) * surfaceColor;
+	float3 finalColor = (directionalLight + pointLight) * surfaceColor;
 
 	return float4(finalColor, surfaceColor.a);
 }
