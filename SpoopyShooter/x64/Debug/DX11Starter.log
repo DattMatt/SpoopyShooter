@@ -1,7 +1,5 @@
-﻿  Camera.cpp
+﻿  Emitter.cpp
 \\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
 \\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\camera.cpp(96): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-\\banner.main.ad.rit.edu\students\cac5432\igmprofile\documents\spoopyshooter\spoopyshooter\camera.cpp(97): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.exe
   DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\cac5432\IGMProfile\Documents\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.pdb (Full PDB)

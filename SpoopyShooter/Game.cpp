@@ -524,7 +524,7 @@ void Game::Update(float deltaTime, float totalTime)
 		SetCursorPos(1920 / 2, 1017 / 2);
 	}
 
-	emitter->Update(deltaTime);
+	emitter->Update(deltaTime, player->GetPosition());
 
 	camera->Update(deltaTime);
 	debug->Update(deltaTime);
