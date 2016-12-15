@@ -1,13 +1,26 @@
-﻿  Main.cpp
-\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-  Game.cpp
-\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(102): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\simpleshader.h(106): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\game.cpp(160): warning C4305: 'argument': truncation from 'double' to 'float'
-\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\game.cpp(750): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\game.cpp(786): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-\\banner.main.ad.rit.edu\students\zxw8994\igmprofile\desktop\spoopy\spoopyshooter\spoopyshooter\game.cpp(790): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-  Generating Code...
-  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.exe
-  DX11Starter.vcxproj -> \\banner.main.ad.rit.edu\students\zxw8994\IGMProfile\Desktop\Spoopy\SpoopyShooter\SpoopyShooter\x64\Debug\DX11Starter.pdb (Full PDB)
+﻿Build started 12/14/2016 10:14:50 PM.
+     1>Project "C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\DX11Starter.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\packages\directxtk_desktop_2015.2016.9.15.1\build\native\../../build/native/include/ /ZI /nologo /W3 /WX- /sdl /Od /D HAS_DIRECTXTK /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt Node.cpp
+         Node.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\x64\Debug\DX11Starter.exe" /INCREMENTAL /NOLOGO C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\packages\directxtk_desktop_2015.2016.9.15.1\build\native\../../build/native/lib/x64/Debug/DirectXTKAudioDX.lib C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\packages\directxtk_desktop_2015.2016.9.15.1\build\native\../../build/native/lib/x64/Debug/DirectXTK.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\x64\Debug\DX11Starter.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\x64\Debug\DX11Starter.lib" /MACHINE:X64 x64\Debug\Camera.obj
+         x64\Debug\DXCore.obj
+         x64\Debug\Emitter.obj
+         x64\Debug\Entity.obj
+         x64\Debug\Game.obj
+         x64\Debug\Main.obj
+         x64\Debug\Material.obj
+         x64\Debug\Mesh.obj
+         x64\Debug\Node.obj
+         x64\Debug\Player.obj
+         x64\Debug\SimpleShader.obj
+         x64\Debug\SmokeEmitter.obj
+         x64\Debug\Target.obj
+         x64\Debug\Terrain.obj
+         DX11Starter.vcxproj -> C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\x64\Debug\DX11Starter.exe
+     1>Done Building Project "C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\DX11Starter.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.21

@@ -1,20 +1,39 @@
-﻿  Terrain.cpp
-c:\users\colton\documents\spoopyshooter\spoopyshooter\terrain.cpp(29): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-c:\users\colton\documents\spoopyshooter\spoopyshooter\terrain.cpp(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Main.cpp
-  Game.cpp
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(76): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(81): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(86): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(91): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(150): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(155): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(188): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(430): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(509): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(520): warning C4018: '<': signed/unsigned mismatch
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(618): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\colton\documents\spoopyshooter\spoopyshooter\game.cpp(652): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-  Generating Code...
-  DX11Starter.vcxproj -> C:\Users\Colton\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.exe
-  DX11Starter.vcxproj -> C:\Users\Colton\Documents\SpoopyShooter\SpoopyShooter\Debug\DX11Starter.pdb (Full PDB)
+﻿Build started 12/14/2016 10:11:43 PM.
+     1>Project "C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\DX11Starter.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /IC:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\packages\directxtk_desktop_2015.2016.9.15.1\build\native\../../build/native/include/ /ZI /nologo /W3 /WX- /sdl- /Od /Oy- /D HAS_DIRECTXTK /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
+         Game.cpp
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(84): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(89): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(94): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(99): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(160): warning C4305: 'argument': truncation from 'double' to 'float'
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(221): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(587): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(592): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(686): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(708): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(827): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(862): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+     1>c:\users\john\desktop\spoopy_shooter_2\spoopyshooter\game.cpp(866): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\Debug\DX11Starter.exe" /INCREMENTAL /NOLOGO C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\packages\directxtk_desktop_2015.2016.9.15.1\build\native\../../build/native/lib/Win32/Debug/DirectXTKAudioDX.lib C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\packages\directxtk_desktop_2015.2016.9.15.1\build\native\../../build/native/lib/Win32/Debug/DirectXTK.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\Debug\DX11Starter.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\Debug\DX11Starter.lib" /MACHINE:X86 Debug\Camera.obj
+         Debug\DXCore.obj
+         Debug\Emitter.obj
+         Debug\Entity.obj
+         Debug\Game.obj
+         Debug\Main.obj
+         Debug\Material.obj
+         Debug\Mesh.obj
+         Debug\Node.obj
+         Debug\Player.obj
+         Debug\SimpleShader.obj
+         Debug\SmokeEmitter.obj
+         Debug\Target.obj
+         Debug\Terrain.obj
+         DX11Starter.vcxproj -> C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\Debug\DX11Starter.exe
+     1>Done Building Project "C:\Users\John\Desktop\Spoopy_Shooter_2\SpoopyShooter\DX11Starter.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.52

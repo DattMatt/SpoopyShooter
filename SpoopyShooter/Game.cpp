@@ -169,11 +169,11 @@ void Game::Init()
 	emitter = new SmokeEmitter(
 		500,
 		10,
-		5,
+		10,
 		3.0f,
 		1.0f,
-		XMFLOAT4(0.1f, 0.1f, 0.1f, 0.6f),
-		XMFLOAT4(0.1f, 0.1f, 0.1f, 0.1f),
+		XMFLOAT4(0.1f, 0.1f, 0.1f, 0.8f),
+		XMFLOAT4(0.1f, 0.1f, 0.1f, 0.2f),
 		XMFLOAT3(-1, 0, 1),
 		XMFLOAT3(8, 1, 0),
 		XMFLOAT3(-0.5f, 0, -0.5f),
@@ -418,31 +418,109 @@ void Game::CreateBasicGeometry()
 	meshes.push_back(fencePillar);
 
 	entities.push_back(new Entity(terr->getMesh(), matTerrain));
-	//entities.push_back(new Entity(cone, mat));
-	//entities.push_back(new Entity(cube, mat2));
-	//entities.push_back(new Entity(ghost, mat));
-	//entities.push_back(new Entity(cube, mat));
-	//entities.push_back(new Entity(fencePillar, mat3));
-	//entities.push_back(new Entity(square, mat));
+	//tree
+	entities.push_back(new Entity(treeBase, matBark));
+	entities.push_back(new Entity(treeLeaves, mat));
+	//tree
+	entities.push_back(new Entity(treeBase, matBark));
+	entities.push_back(new Entity(treeLeaves, mat));
+	//tree
+	entities.push_back(new Entity(treeBase, matBark));
+	entities.push_back(new Entity(treeLeaves, mat));
+	//tree
+	entities.push_back(new Entity(treeBase, matBark));
+	entities.push_back(new Entity(treeLeaves, mat));
+	//tree
+	entities.push_back(new Entity(treeBase, matBark));
+	entities.push_back(new Entity(treeLeaves, mat));
+	//tree
+	entities.push_back(new Entity(treeBase, matBark));
+	entities.push_back(new Entity(treeLeaves, mat));
+	//tree
+	entities.push_back(new Entity(treeBase, matBark));
+	entities.push_back(new Entity(treeLeaves, mat));
+	//tree
+	entities.push_back(new Entity(treeBase, matBark));
+	entities.push_back(new Entity(treeLeaves, mat));
+	//tree
+	entities.push_back(new Entity(treeBase, matBark));
+	entities.push_back(new Entity(treeLeaves, mat));
+	//tree
+	entities.push_back(new Entity(treeBase, matBark));
+	entities.push_back(new Entity(treeLeaves, mat));
 
-	//targets.push_back(new Target(cube, mat));
-	//targets.push_back(new Target(ghost, matGhost));	
-
-	targets.push_back(new Target(ghost, matGhost));
-	targets.push_back(new Target(ghost, matGhost));
-	targets.push_back(new Target(ghost, matGhost));
-	targets.push_back(new Target(ghost, matGhost));
-	targets.push_back(new Target(ghost, matGhost));
-	targets.push_back(new Target(ghost, matGhost));
-	targets.push_back(new Target(ghost, matGhost));
-	targets.push_back(new Target(ghost, matGhost));
-	targets.push_back(new Target(ghost, matGhost));
-	targets.push_back(new Target(ghost, matGhost));
-	//targets.push_back(new Target(treeBase, matBark));
-
-	//printf("Radius of Ghost: %f", targets[0]->GetRadius());
+	//pillars
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
+	entities.push_back(new Entity(fencePillar, mat3));
 
 	entities[0]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 0.0f));
+	//tree
+	entities[1]->SetPositionVector(XMFLOAT3(-8.0f, 0.0f, 3.0f));
+	entities[2]->SetPositionVector(XMFLOAT3(-8.0f, 0.0f, 3.0f));
+	//tree
+	entities[4]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 9.0f));
+	entities[3]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 9.0f));
+	//tree
+	entities[5]->SetPositionVector(XMFLOAT3(-3.0f, 0.0f, 10.0f));
+	entities[6]->SetPositionVector(XMFLOAT3(-3.0f, 0.0f, 10.0f));
+	//tree
+	entities[7]->SetPositionVector(XMFLOAT3(-10.0f, 0.0f, 10.0f));
+	entities[8]->SetPositionVector(XMFLOAT3(-10.0f, 0.0f, 10.0f));
+	//tree
+	entities[9]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 16.0f));
+	entities[10]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 16.0f));
+	//tree
+	entities[11]->SetPositionVector(XMFLOAT3(-10.0f, 0.0f, 17.0f));
+	entities[12]->SetPositionVector(XMFLOAT3(-10.0f, 0.0f, 17.0f));
+	//tree
+	entities[13]->SetPositionVector(XMFLOAT3(8.0f, 0.0f, 18.0f));
+	entities[14]->SetPositionVector(XMFLOAT3(8.0f, 0.0f, 18.0f));
+	//tree
+	entities[15]->SetPositionVector(XMFLOAT3(4.0f, 0.0f, 19.0f));
+	entities[16]->SetPositionVector(XMFLOAT3(4.0f, 0.0f, 19.0f));
+	//tree
+	entities[17]->SetPositionVector(XMFLOAT3(-8.0f, 0.0f, 19.0f));
+	entities[18]->SetPositionVector(XMFLOAT3(-8.0f, 0.0f, 19.0f));
+	//tree
+	entities[19]->SetPositionVector(XMFLOAT3(-6.0f, 0.0f, 21.0f));
+	entities[20]->SetPositionVector(XMFLOAT3(-6.0f, 0.0f, 21.0f));
+	//pillars
+	entities[21]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 4.0f));
+	entities[22]->SetPositionVector(XMFLOAT3(-6.0f, 0.0f, 14.0f));
+	entities[23]->SetPositionVector(XMFLOAT3(0.0f, 0.0f, 22.0f));
+
+	entities[24]->SetPositionVector(XMFLOAT3(-12.0f, 0.0f, -2.0f));
+	entities[25]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, -2.0f));
+	entities[26]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, -2.0f));
+	entities[27]->SetPositionVector(XMFLOAT3(12.0f, 0.0f, -2.0f));
+	entities[28]->SetPositionVector(XMFLOAT3(-12.0f, 0.0f, 12.0f));
+	entities[29]->SetPositionVector(XMFLOAT3(12.0f, 0.0f, 12.0f));
+	entities[30]->SetPositionVector(XMFLOAT3(-12.0f, 0.0f, 24.0f));
+	entities[31]->SetPositionVector(XMFLOAT3(-2.0f, 0.0f, 24.0f));
+	entities[32]->SetPositionVector(XMFLOAT3(2.0f, 0.0f, 24.0f));
+	entities[33]->SetPositionVector(XMFLOAT3(12.0f, 0.0f, 24.0f));
+
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(ghost, matGhost));	
 
 	targets[0]->SetPositionVector(XMFLOAT3(8.0f,   2.5f, 0.0f));
 	targets[1]->SetPositionVector(XMFLOAT3(0.0f,   2.5f, 5.0f));
