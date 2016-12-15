@@ -63,10 +63,12 @@ Game::~Game()
 	delete pentagon;
 	delete emitter;	
 	delete matGhost;
+	delete matBark;
 	leavesView->Release();
 	brickView->Release();
 	stoneFence->Release();
 	terrainView->Release();
+	barkView->Release();
 	sampler->Release();
 	partTex->Release();
 	particleBlendState->Release();
@@ -275,6 +277,7 @@ void Game::LoadShaders()
 	HRESULT texResult4 = CreateWICTextureFromFile(device, context, L"Assets/Terrain/grass.png", 0, &terrainView);
 	HRESULT ghosttext = CreateWICTextureFromFile(device, context, L"Assets/Textures/ghost.png", 0, &ghostRes);
 	CreateWICTextureFromFile(device, context, L"Assets/Textures/circleParticle.jpg", 0, &partTex);
+	CreateWICTextureFromFile(device, context, L"Assets/Textures/bark.tif", 0, &barkView);
 	HRESULT sampResult = device->CreateSamplerState(&description, &sampler);
 
 	mat = new Material(vertexShader, pixelShader, leavesView, sampler);
@@ -282,6 +285,7 @@ void Game::LoadShaders()
 	mat3 = new Material(vertexShader, pixelShader, stoneFence, sampler);
 	matTerrain = new Material(vertexShader, pixelShader, terrainView, sampler);
 	matGhost = new Material(vertexShader, pixelShader,ghostRes, sampler);
+	matBark = new Material(vertexShader, pixelShader, barkView, sampler);
 
 	// You'll notice that the code above attempts to load each
 	// compiled shader file (.cso) from two different relative paths.
@@ -403,6 +407,10 @@ void Game::CreateBasicGeometry()
 	Mesh* cube = new Mesh("Assets/Models/cube.obj", device);
 	Mesh* ghost = new Mesh("Assets/Models/SpoopyGhost.obj", device);
 	Mesh* fencePillar = new Mesh("Assets/Models/FencePillar.obj", device);
+	Mesh* treeBase = new Mesh("Assets/Models/treeBase.obj", device);
+	Mesh* treeLeaves = new Mesh("Assets/Models/treeLeaves.obj", device);
+	Mesh* treeLeaves2 = new Mesh("Assets/Models/treeLeaves2.obj", device);
+	Mesh* tallBuilding = new Mesh("Assets/Models/tallBuilding.obj", device);
 
 	meshes.push_back(cone);
 	meshes.push_back(cube);
@@ -430,6 +438,7 @@ void Game::CreateBasicGeometry()
 	targets.push_back(new Target(ghost, matGhost));
 	targets.push_back(new Target(ghost, matGhost));
 	targets.push_back(new Target(ghost, matGhost));
+	targets.push_back(new Target(treeBase, matBark));
 
 	printf("Radius of Ghost: %f", targets[0]->GetRadius());
 
@@ -445,6 +454,7 @@ void Game::CreateBasicGeometry()
 	targets[7]->SetPositionVector(XMFLOAT3(8.0f,   1.0f, 23.0f));
 	targets[8]->SetPositionVector(XMFLOAT3(-4.0f,  1.0f, 20.0f));
 	targets[9]->SetPositionVector(XMFLOAT3(-12.0f, 1.0f, 20.0f));
+	targets[10]->SetPositionVector(XMFLOAT3(-8.0f, 1.0f, 4.0f));
 }
 
 

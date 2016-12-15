@@ -53,6 +53,8 @@ private:
 	Material* mat3;
 	Material* matTerrain;
 	Material* matGhost;
+	Material* matBark;
+
 
 	std::vector<Entity*> entities;
 	std::vector<Mesh*> meshes;
@@ -69,6 +71,7 @@ private:
 	ID3D11ShaderResourceView* brickView;
 	ID3D11ShaderResourceView* stoneFence;
 	ID3D11ShaderResourceView* terrainView;
+	ID3D11ShaderResourceView* barkView;
 	ID3D11ShaderResourceView* skySRV;
 	ID3D11ShaderResourceView* ghostRes;
 	ID3D11SamplerState* sampler;
